@@ -1,0 +1,25 @@
+{
+  "text": [
+    "How are you doing?",
+    "Looking for some new technology to learn in your spare time? Your boss tasked you with this brand new problem she's no idea how to solve?",
+    "Well, technology is a vaste world. Sometimes the amount of different products and platforms seems overwhelming. How to figure out the most effective solutions for your problem?",
+    "Don't worry, we can do this. Let's start by defining our scope here. What do you want to talk about?"
+  ],
+  "childs": [
+    {
+      "intent": "SwitchTopic",
+      "entities": ["MachineLearning"],
+      "node": {
+        "text": "Great, I'm passionate about machine learning! Pretty hot topic these days, ha?"
+      }
+    },
+    {
+      "intent": "SwitchTopic",
+      "entities": ["MobileApp"],
+      "node": {
+        "text": "Cool! I suppose you already have prototyped the User Experience, right?"
+      }
+    }
+  ]
+
+}
