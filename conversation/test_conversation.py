@@ -96,3 +96,20 @@ class TestConversation(TestCase):
             IntentResponse(Intent('SwitchTopic'), [Entity('MobileApp')]))
         self.assertIsNotNone(node)
         self.assertEqual('Cool! I suppose you already have prototyped the User Experience, right?', node.message)
+
+    def test_global_handler(self):
+        """
+        The nodes whose label starts with Handle are global handler.
+        MyIntentHandler is the handler for MyIntent.
+        At any point in the conversation, an Intent can trigger its global handler.
+        :return:
+        """
+        question = Question('Asd or Osd?', [IntentAnswer('asd_node', Intent('Asd'))])
+        self.story.append(question)
+        self.story.append(Node("Hey, I'm global!", "HandleOsd"))
+        c = Conversation(self.story)
+        c.set_current_node(question)
+
+        node = c.get_intent_reply(IntentResponse(Intent('Osd')))
+        self.assertIsNotNone(node)
+        self.assertEqual("Hey, I'm global!", node.message)

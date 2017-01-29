@@ -38,13 +38,17 @@ class Conversation:
                 label = a.get_next_label()
                 return self._find_node(label)
 
-        return None
+        return self._find_global_handler(intent_response)
 
     def _find_node(self, label):
         try:
             return next(n for n in self.story if n.label == label)
         except StopIteration:
             return None
+
+    def _find_global_handler(self, intent_response):
+        label = 'Handle' + intent_response.intent.name
+        return self._find_node(label)
 
     @staticmethod
     def load_from_json(encoded):

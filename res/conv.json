@@ -5,8 +5,7 @@
   { "m": "Well, sometimes the amount of different technologies seems overwhelming. Too many choices is no choice at all."},
   { "q": "Don't worry, we can do this. Let's start by defining our scope here. What do you want to talk about?", "answers": [
       {"intent": "SwitchTopic", "entities": ["MachineLearning"], "next": "StartMachineLearning"},
-      {"intent": "SwitchTopic", "entities": ["MobileApp"], "next": "StartMobileApp"},
-      {"intent": "Injury", "next": "HandleInjury"}
+      {"intent": "SwitchTopic", "entities": ["MobileApp"], "next": "StartMobileApp"}
     ]
   },
   { "label": "NewTopic", "m": "Do you want to speak about something else?"},
