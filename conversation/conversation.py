@@ -1,91 +1,50 @@
-import random
 import json
-from typing import List
-from rx import Observer, Observable
 
-from conversation.conversation_graph import Node, Edge
+from conversation.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode
 from conversation.intent import Intent, Entity
-from conversation.luis import LUISHandler
 
 
 __author__ = 'Flavio Ferrara'
 
-class Message:
-    def __init__(self, text):
-        self.message = text
-        self.type = 'MESSAGE'
-
-    def __repr__(self):
-        return json.dumps({
-            'type': self.type,
-            'message': self.message
-        })
-
-class Conversable:
-    def __init__(self, conversation, handler=None):
-        """
-
-
-        :param conversation: Conversation
-        :param handler: IntentHandler
-        """
-        assert isinstance(conversation, Conversation)
-        self.conversation = conversation
-        if handler is not None:
-            self.handler = handler
-        else:
-            self.handler = LUISHandler()
-
-    def process_sentence(self, sentence):
-        """
-
-            :rtype : List[Message]
-            :param sentence: string
-            """
-        if sentence == 'handshake':
-            return Observable.from_list([Message(r) for r in self.conversation.root.reply])
-        response = self.handler.process_sentence(sentence)
-        print(response)
-        return self.conversation.get_reply(response['intent'], response['entities'])
-
 
 class Conversation:
-    def __init__(self, root=None):
-        if root is not None:
-            assert isinstance(root, Node)
+    def __init__(self, story=None):
+        self.story = story  # type: List
+        self.current_index = 0
 
-        self.root = root  # type: Node
-        self.current_node = None
+    def current_node(self):
+        return self.story[self.current_index]
 
-    def get_reply(self, intent, entities=None):
+    def set_current_node(self, from_node):
+        self.current_index = self.story.index(from_node)
+
+    def next_node(self):
+        self.current_index += 1
+        return self.story[self.current_index]
+
+    def get_intent_reply(self, intent_response) -> Node:
         """
+    
+            :param intent_response: IntentResponse
+            :return:
+            """
+        if not isinstance(self.story[self.current_index], Question):
+            raise ValueError('Current point in story is not a question')
 
-        :param intent: Intent
-        :return:
-        """
-        if self.current_node is None:
-            node = self._find_node(self.root, intent, entities)
-        else:
-            node = self._find_node(self.current_node, intent, entities)
-            if node is None:
-                node = self._find_node(self.root, intent, entities)
+        question = self.story[self.current_index]
+        for a in question.answers:
+            if a.match_reply(intent_response):
+                # find label
+                label = a.get_next_label()
+                return self._find_node(label)
 
-        self.current_node = node
-        return node
+        return None
 
-    def _find_node(self, from_node, intent, entities):
-        same_name = []
-        for child in from_node.childs:
-            if intent == child.intent:
-                if len(child.entities) == 0:
-                    same_name.append(child.to_node)
-                if child.has_entities(entities):
-                    return child.to_node
-        else:
-            if len(same_name) == 0:
-                return None
-
-            return random.choice(same_name)
+    def _find_node(self, label):
+        try:
+            return next(n for n in self.story if n.label == label)
+        except StopIteration:
+            return None
 
     @staticmethod
     def load_from_json(encoded):
@@ -94,6 +53,12 @@ class Conversation:
         :param encoded: The JSON string
         :return: :raise TypeError:
         """
+        def build_answer(dict):
+            if 'intent' in dict:
+                return IntentAnswer(
+                    dict['next'],
+                    Intent(dict['intent']),
+                    [Entity(e) for e in dict.get('entities', [])])
 
         def create_node(dict):
             """
@@ -103,26 +68,23 @@ class Conversation:
             :return: The Node
             :rtype: Node
             """
-            node = Node(dict['text'])
-            if 'text' not in dict:
-                raise TypeError('Valid JSON must specify text on each node')
+            if 'm' in dict:
+                # Is a simple Node
+                return Node(dict['m'], dict.get('label'))
+            elif 'messages' in dict:
+                # Node with multiple messages
+                return RandomMessageNode(dict['messages'], dict.get('label'))
+            elif 'q' in dict:
+                # Is a question
+                answers = [build_answer(a) for a in dict['answers']]
+                return Question(dict['q'], answers)
 
-            if 'childs' in dict:
-                for edge in dict['childs']:
-                    intent = Intent(edge['intent'])
-                    entities = [Entity(e) for e in edge['entities']]
-                    to = create_node(edge['node'])
-                    node.add_edge(Edge(to, intent, entities))
-
-            return node
+            raise ValueError('Each line must be a message or a question')
 
         decoded = json.loads(encoded)
 
-        if 'text' not in decoded or 'childs' not in decoded:
-            raise TypeError('Valid JSON must specify text and childs on root node')
-
-        root = create_node(decoded)
-        return Conversation(root)
+        story = [create_node(record) for record in decoded]
+        return Conversation(story)
 
 
 

@@ -1,25 +1,20 @@
-{
-  "text": [
-    "How are you doing?",
-    "Looking for some new technology to learn in your spare time? Your boss tasked you with this brand new problem she's no idea how to solve?",
-    "Well, technology is a vaste world. Sometimes the amount of different products and platforms seems overwhelming. How to figure out the most effective solutions for your problem?",
-    "Don't worry, we can do this. Let's start by defining our scope here. What do you want to talk about?"
-  ],
-  "childs": [
-    {
-      "intent": "SwitchTopic",
-      "entities": ["MachineLearning"],
-      "node": {
-        "text": "Great, I'm passionate about machine learning! Pretty hot topic these days, ha?"
-      }
-    },
-    {
-      "intent": "SwitchTopic",
-      "entities": ["MobileApp"],
-      "node": {
-        "text": "Cool! I suppose you already have prototyped the User Experience, right?"
-      }
-    }
-  ]
+[
+  { "m": "Nice to have you here! How are you doing?"},
+  { "m": "Looking for some new technology to learn in your spare time?"},
+  { "m": "Your boss tasked you with this brand new project he's no idea how to carry out?"},
+  { "m": "Well, sometimes the amount of different technologies seems overwhelming. Too many choices is no choice at all."},
+  { "q": "Don't worry, we can do this. Let's start by defining our scope here. What do you want to talk about?", "answers": [
+      {"intent": "SwitchTopic", "entities": ["MachineLearning"], "next": "StartMachineLearning"},
+      {"intent": "SwitchTopic", "entities": ["MobileApp"], "next": "StartMobileApp"},
+      {"intent": "Injury", "next": "HandleInjury"}
+    ]
+  },
+  { "label": "NewTopic", "m": "Do you want to speak about something else?"},
+  { "label": "HandleInjury", "messages": [
+    "Does your mom know you talk this way with strangers?"
+  ]},
+  { "label": "StartMachineLearning", "m": "Great, I'm passionate about machine learning! Pretty hot topic these days, ha?"},
+  { "m": "First things first. Machine learning is about data"},
+  { "label": "StartMobileApp", "m": "Cool! I suppose you already have prototyped the User Experience, right?"}
 
-}
+]

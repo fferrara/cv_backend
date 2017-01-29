@@ -2,7 +2,7 @@ import os
 
 import requests
 
-from conversation.intent import SentenceHandler
+from conversation.intent import SentenceHandler, IntentResponse, Intent, Entity
 
 
 __author__ = 'Flavio Ferrara'
@@ -24,10 +24,9 @@ class LUISHandler(SentenceHandler):
             raise RuntimeError
 
         json = r.json()
-        # TODO: response as an object
-        response = {
-            'intent': json['topScoringIntent']['intent'],
-            'entities': [e['entity'] for e in json['entities']]
-        }
+        response = IntentResponse(
+            Intent(json['topScoringIntent']['intent']),
+            [Entity(e['entity']) for e in json['entities']]
+        )
 
         return response

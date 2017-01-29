@@ -5,9 +5,7 @@ import rx
 
 if __name__ == '__main__':
     with open('res/conv.json') as f:
-        json_conv = f.read()
-
-    conversation = Conversation.load_from_json(json_conv)
+        conversation = Conversation.load_from_json(f.read())
 
     myConv = Conversable(conversation)
     ws_stream = Subject()
