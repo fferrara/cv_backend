@@ -1,6 +1,6 @@
 import json
 
-from cv.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode
+from cv.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode, ChoiceAnswer
 from cv.intent import Intent, Entity
 
 
@@ -60,12 +60,17 @@ class Conversation:
         :param encoded: The JSON string
         :return: :raise TypeError:
         """
+
         def build_answer(dict):
             if 'intent' in dict:
                 return IntentAnswer(
                     dict['next'],
                     Intent(dict['intent']),
                     [Entity(e) for e in dict.get('entities', [])])
+            elif 'choice' in dict:
+                return ChoiceAnswer(
+                    dict['next'],
+                    dict['choice'])
 
         def create_node(dict):
             """
@@ -83,6 +88,8 @@ class Conversation:
                 return RandomMessageNode(dict['messages'], dict.get('label'))
             elif 'q' in dict:
                 # Is a question
+                if 'answers' not in dict:
+                    raise ValueError('Each question must have answers')
                 answers = [build_answer(a) for a in dict['answers']]
                 return Question(dict['q'], answers)
 

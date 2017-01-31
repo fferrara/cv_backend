@@ -112,3 +112,18 @@ class IntentAnswer(Answer):
             return True
 
         return False
+
+
+class ChoiceAnswer(Answer):
+    def get_next_label(self):
+        return self.next_label
+
+    def match_reply(self, reply):
+        if not isinstance(reply, str):
+            return False
+
+        return self.choice == reply
+
+    def __init__(self, next_label, choice):
+        self.next_label = next_label
+        self.choice = choice

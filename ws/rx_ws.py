@@ -1,6 +1,7 @@
 import json
 from rx.core.py3.observer import Observer
 import time
+from cv.converse import Sentence
 
 __author__ = 'Flavio Ferrara'
 
@@ -39,10 +40,13 @@ class RxWebSocketServerFactory(WebSocketServerFactory):
 
     def init_client(self, client):
         self.clients.append(client)
-        self.in_stream.on_next('handshake')
+        self.in_stream.on_next(Sentence.HANDSHAKE)
 
     def propagate(self, msg):
-        self.in_stream.on_next(msg)
+        try:
+            self.in_stream.on_next(Sentence.build(msg))
+        except:
+            self.send('Oops'.encode('utf-8'))
 
     def send(self, data):
         for client in self.clients:

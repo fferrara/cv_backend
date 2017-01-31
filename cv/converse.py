@@ -3,11 +3,33 @@ import json
 from rx.core.py3.observable import Observable
 
 from cv.conversation import Conversation
-from cv.conversation_graph import Question
+from cv.conversation_graph import Question, ChoiceAnswer
 from cv.luis import LUISHandler
 
 
 __author__ = 'Flavio Ferrara'
+
+
+class Sentence:
+    HANDSHAKE = 'handshake'
+
+    def __init__(self, type, text):
+        self.type = type
+        self.text = text
+
+    def isChoice(self):
+        return self.type == 'choice'
+
+    def isHandshake(self):
+        return self.text == Sentence.HANDSHAKE
+
+    @staticmethod
+    def build(asJson):
+        asDict = json.loads(asJson)
+        if 'type' not in asDict or 'text' not in asDict:
+            return ValueError('Invalid sentence')
+
+        return Sentence(asDict['type'], asDict['text'])
 
 
 class Message:
@@ -20,6 +42,27 @@ class Message:
             'type': self.type,
             'message': self.message
         })
+
+
+class QuestionMessage:
+    def __init__(self, question):
+        """
+
+        :param question: Question
+        """
+        self.question = question.question
+        self.choices = [a.choice for a in question.answers if isinstance(a, ChoiceAnswer)]
+        self.type = 'QUESTION'
+
+    def __repr__(self):
+        d = {
+            'type': self.type,
+            'question': self.question
+        }
+        if self.choices is not None:
+            d['choices'] = self.choices
+
+        return json.dumps(d)
 
 
 class Conversable:
@@ -70,7 +113,7 @@ class Conversable:
             messages.append(Message(node.message))
             node = self.conversation.next_node()
             if isinstance(node, Question):
-                messages.append(Message(node.question))
+                messages.append(QuestionMessage(node))
                 break
 
         return messages
