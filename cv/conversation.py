@@ -1,7 +1,7 @@
 import json
 
-from conversation.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode
-from conversation.intent import Intent, Entity
+from cv.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode
+from cv.intent import Intent, Entity
 
 
 __author__ = 'Flavio Ferrara'
@@ -20,7 +20,10 @@ class Conversation:
 
     def next_node(self):
         self.current_index += 1
-        return self.story[self.current_index]
+        try:
+            return self.story[self.current_index]
+        except IndexError:
+            return None
 
     def get_intent_reply(self, intent_response) -> Node:
         """

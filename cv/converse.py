@@ -2,9 +2,9 @@ import json
 
 from rx.core.py3.observable import Observable
 
-from conversation.conversation import Conversation
-from conversation.conversation_graph import Question
-from conversation.luis import LUISHandler
+from cv.conversation import Conversation
+from cv.conversation_graph import Question
+from cv.luis import LUISHandler
 
 
 __author__ = 'Flavio Ferrara'
@@ -46,6 +46,8 @@ class Conversable:
             :rtype : List[Message]
             :param sentence: string
             """
+        if sentence == 'handshake':
+            return self.start()
         response = self.handler.process_sentence(sentence)
         print(response)
 
@@ -54,7 +56,7 @@ class Conversable:
 
     def _continue_until_question(self, from_node=None):
         """
-        Iterate the conversation until the next node that is a Question.
+        Iterate the cv until the next node that is a Question.
         Return the list of messages found during iteration.
         If specified, iteration starts from the from_node Node.
 
@@ -64,8 +66,11 @@ class Conversable:
             self.conversation.set_current_node(from_node)
 
         node = from_node or self.conversation.current_node()
-        while node is not None and not isinstance(node, Question):
+        while node is not None:
             messages.append(Message(node.message))
             node = self.conversation.next_node()
+            if isinstance(node, Question):
+                messages.append(Message(node.question))
+                break
 
         return messages

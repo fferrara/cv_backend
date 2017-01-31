@@ -3,7 +3,7 @@ import collections
 import random
 import string
 
-from conversation.intent import Entity, IntentResponse
+from cv.intent import Entity, IntentResponse
 
 
 __author__ = 'Flavio Ferrara'

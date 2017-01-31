@@ -12,6 +12,10 @@
   { "label": "HandleInjury", "messages": [
     "Does your mom know you talk this way with strangers?"
   ]},
+  { "q": "This time I will let it slide. What were we talking about?", "answers": [
+      {"intent": "SwitchTopic", "entities": ["MachineLearning"], "next": "StartMachineLearning"},
+      {"intent": "SwitchTopic", "entities": ["MobileApp"], "next": "StartMobileApp"}
+    ]},
   { "label": "StartMachineLearning", "m": "Great, I'm passionate about machine learning! Pretty hot topic these days, ha?"},
   { "m": "First things first. Machine learning is about data"},
   { "label": "StartMobileApp", "m": "Cool! I suppose you already have prototyped the User Experience, right?"}

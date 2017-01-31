@@ -1,13 +1,13 @@
 from rx.subjects import Subject
-from conversation.conversation import Conversable, Conversation
+from cv import conversation, converse
 from ws.ws import WebSocketServer
 import rx
 
 if __name__ == '__main__':
     with open('res/conv.json') as f:
-        conversation = Conversation.load_from_json(f.read())
+        conversation = conversation.Conversation.load_from_json(f.read())
 
-    myConv = Conversable(conversation)
+    myConv = converse.Conversable(conversation)
     ws_stream = Subject()
     wss = WebSocketServer(ws_stream)
     ws_stream.map(

@@ -1,8 +1,8 @@
 from unittest import TestCase
 
-from conversation.conversation import Conversation
-from conversation.conversation_graph import Node, Question, IntentAnswer
-from conversation.intent import Intent, Entity, IntentResponse
+from cv.conversation import Conversation
+from cv.conversation_graph import Node, Question, IntentAnswer
+from cv.intent import Intent, Entity, IntentResponse
 
 
 __author__ = 'Flavio Ferrara'
@@ -101,7 +101,7 @@ class TestConversation(TestCase):
         """
         The nodes whose label starts with Handle are global handler.
         MyIntentHandler is the handler for MyIntent.
-        At any point in the conversation, an Intent can trigger its global handler.
+        At any point in the cv, an Intent can trigger its global handler.
         :return:
         """
         question = Question('Asd or Osd?', [IntentAnswer('asd_node', Intent('Asd'))])
