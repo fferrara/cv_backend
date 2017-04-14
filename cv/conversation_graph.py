@@ -12,9 +12,10 @@ def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 class Node:
-    def __init__(self, message, label=None):
+    def __init__(self, message, label=None, next_label=None):
         self.label = label or id_generator()
         self._message = message
+        self._next = next_label
 
     def __eq__(self, other):
         if not isinstance(other, Node):
@@ -31,6 +32,10 @@ class Node:
     @property
     def message(self):
         return self._message
+
+    @property
+    def next_label(self):
+        return self._next
 
 
 class RandomMessageNode(Node):
@@ -95,6 +100,11 @@ class IntentAnswer(Answer):
             raise TypeError('Optional parameter entities should be a sequence or a string')
 
     def match_reply(self, reply):
+        """
+
+        :param reply: IntentResponse
+        :return: bool
+        """
         if not isinstance(reply, IntentResponse):
             return False
 
@@ -119,6 +129,11 @@ class ChoiceAnswer(Answer):
         return self.next_label
 
     def match_reply(self, reply):
+        """
+
+        :param reply: str
+        :return: bool
+        """
         if not isinstance(reply, str):
             return False
 

@@ -1,0 +1,37 @@
+[
+  { "m": "It's great to have you here! How are you doing?"},
+  { "m": "I'm Flavio, a creative software engineer."},
+  { "m": "Welcome to the my very own first-of-its-kind <strong>conversational resume</strong>."},
+  { "q": "Would you like to know something specific about me?", "answers": [
+      {"intent": "Education", "next": "StartEducation"},
+      {"intent": "WorkExperience", "next": "StartWorkExperience"}
+    ], "fallback": "AskTopic"
+  },
+  { "label": "HandleInjury", "messages": [
+    "Does your mom know you talk this way with strangers?"
+  ]},
+  { "q": "This time I will let it slide. What were we talking about?", "answers": [
+      {"intent": "SwitchTopic", "entities": ["MachineLearning"], "next": "StartMachineLearning"},
+      {"intent": "SwitchTopic", "entities": ["MobileApp"], "next": "StartMobileApp"}
+    ]},
+  { "label": "StartEducation", "m": "I got the <strong>bachelor's degree</strong> in Computer Engineering from the Politecnico di Milano. It was 2012."},
+  { "m": "Then, I spent 1 year at the Universidade Federal do Espirito Santo, in Vitória, Brazil."},
+  { "q": "Would you like to know more?", "answers": [
+      {"choice": "Please!", "next": "ContinueEducation"},
+      {"choice": "No, boring", "next": "Topics"}
+    ]},
+  { "label": "ContinueEducation", "m": "I got the <strong>bachelor's degree</strong> in Computer Engineering from the Politecnico di Milano. It was 2012."},
+  { "m": "Then, I spent 1 year at the Universidade Federal do Espirito Santo, in Vitória, Brazil."},
+  { "q": "Anything more?", "answers": [
+    {"intent": "Education", "next": "RepeatEducation"},
+    {"intent": "Work experience", "next": "StartWorkExperience"}
+  ]},
+  { "label": "RepeatEducation", "m": "Again? I swear there's more to know about me!", "next": "Topics"},
+  { "label": "AskTopic", "m": "Yeah, I'm not sure I get this."},
+  { "label": "Topics", "q": "What would you are interested in?", "answers": [
+    {"choice": "Education", "next": "StartEducation"},
+    {"choice": "Work experience", "next": "StartWorkExperience"}
+  ]},
+  { "label": "StartWorkExperience", "m": "Cool! I suppose you already have prototyped the User Experience, right?"}
+
+]

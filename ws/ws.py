@@ -15,19 +15,19 @@ class WebSocketServer():
     HOST = 'localhost'
     PORT = 9000
 
-    def __init__(self, in_stream):
-        self.factory = RxWebSocketServerFactory(in_stream)
+    def __init__(self, conversation_json):
+        self.factory = RxWebSocketServerFactory(conversation_json)
         self.factory.protocol = RxWebSocketProtocol
         self.loop = asyncio.get_event_loop()
         coro = self.loop.create_server(self.factory, self.HOST, self.PORT)
         self.server = self.loop.run_until_complete(coro)
 
-    def send(self, msg):
-        data = jsonpickle.encode(msg, unpicklable=False).encode('utf8')
-
-        print('Sending ' + str(data))
-
-        self.factory.send(data)
+    # def send(self, msg):
+    #     data = jsonpickle.encode(msg, unpicklable=False).encode('utf8')
+    #
+    #     print('Sending ' + str(data))
+    #
+    #     self.factory.send(data)
 
     def run(self):
         try:

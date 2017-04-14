@@ -14,10 +14,13 @@ class LUISHandler(SentenceHandler):
     def process_sentence(self, sentence):
         """
 
-        :param sentence: string
+        :param sentence: Sentence
         :return: string
         """
-        payload = {'q': sentence}
+        if sentence.text == '':
+            raise ValueError('Can not process sentence with no text')
+
+        payload = {'q': sentence.text}
         r = requests.get(self.URL, params=payload)
 
         if r.status_code != 200:

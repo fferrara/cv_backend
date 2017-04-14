@@ -1,8 +1,8 @@
 [
-  { "m": "Nice to have you here! How are you doing?"},
-  { "m": "Looking for some new technology to learn in your spare time?"},
-  { "m": "Your boss tasked you with this brand new project he's no idea how to carry out?"},
-  { "m": "Well, sometimes the amount of different technologies seems overwhelming. Too many choices is no choice at all."},
+  { "m": "It's great to have you here! How are you doing?"},
+  { "m": "I'm so bored here alone... just waiting for somebody to talk about cool software stuff!"},
+  { "m": "You feel like learning something new? I can give you some hint."},
+  { "m": "I agree, sometimes the amount of different technologies seems overwhelming. Too many choices is no choice at all."},
   { "q": "Don't worry, we can do this. Let's start by defining our scope here. What do you want to talk about?", "answers": [
       {"intent": "SwitchTopic", "entities": ["MachineLearning"], "next": "StartMachineLearning"},
       {"intent": "SwitchTopic", "entities": ["MobileApp"], "next": "StartMobileApp"}

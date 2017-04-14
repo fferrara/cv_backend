@@ -11,36 +11,38 @@ __author__ = 'Flavio Ferrara'
 
 
 class Sentence:
-    HANDSHAKE = 'handshake'
-
-    def __init__(self, type, text):
-        self.type = type
+    def __init__(self, _type, text):
+        self.type = _type
         self.text = text
 
     def isChoice(self):
-        return self.type == 'choice'
+        return self.type.upper() == 'CHOICE'
 
     def isHandshake(self):
-        return self.text == Sentence.HANDSHAKE
+        return self.text.upper() == 'HANDSHAKE'
 
     @staticmethod
     def build(asJson):
         asDict = json.loads(asJson)
         if 'type' not in asDict or 'text' not in asDict:
-            return ValueError('Invalid sentence')
+            raise ValueError('Invalid sentence')
 
         return Sentence(asDict['type'], asDict['text'])
+
+    @classmethod
+    def handshake(cls):
+        return Sentence('', 'HANDSHAKE')
 
 
 class Message:
     def __init__(self, text):
-        self.message = text
+        self.text = text
         self.type = 'MESSAGE'
 
     def __repr__(self):
         return json.dumps({
             'type': self.type,
-            'message': self.message
+            'text': self.text
         })
 
 
@@ -50,14 +52,14 @@ class QuestionMessage:
 
         :param question: Question
         """
-        self.question = question.question
+        self.text = question.question
         self.choices = [a.choice for a in question.answers if isinstance(a, ChoiceAnswer)]
         self.type = 'QUESTION'
 
     def __repr__(self):
         d = {
             'type': self.type,
-            'question': self.question
+            'text': self.text
         }
         if self.choices is not None:
             d['choices'] = self.choices
@@ -70,6 +72,7 @@ class Conversable:
         """
 
 
+        :type conversation: Conversation
         :param conversation: Conversation
         :param handler: IntentHandler
         """
@@ -81,25 +84,28 @@ class Conversable:
             self.handler = LUISHandler()
 
     def start(self):
-        return Observable.from_list(self._continue_until_question())
+        return Observable.from_list(self._continue_topic())
 
     def process_sentence(self, sentence):
         """
 
             :rtype : List[Message]
-            :param sentence: string
+            :param sentence: Sentence
             """
-        if sentence == 'handshake':
+        if sentence.isHandshake():
             return self.start()
-        response = self.handler.process_sentence(sentence)
-        print(response)
 
-        node = self.conversation.get_intent_reply(response)
-        return Observable.from_list(self._continue_until_question(node))
+        if sentence.isChoice():
+            node = self.conversation.get_choice_reply(sentence.text)
+        else:
+            response = self.handler.process_sentence(sentence)
+            node = self.conversation.get_intent_reply(response)
 
-    def _continue_until_question(self, from_node=None):
+        return Observable.from_list(self._continue_topic(node))
+
+    def _continue_topic(self, from_node=None):
         """
-        Iterate the cv until the next node that is a Question.
+        Iterate the piece of conversation under the same label.
         Return the list of messages found during iteration.
         If specified, iteration starts from the from_node Node.
 
@@ -110,10 +116,11 @@ class Conversable:
 
         node = from_node or self.conversation.current_node()
         while node is not None:
-            messages.append(Message(node.message))
-            node = self.conversation.next_node()
             if isinstance(node, Question):
                 messages.append(QuestionMessage(node))
                 break
+
+            messages.append(Message(node.message))
+            node = self.conversation.next_node()
 
         return messages

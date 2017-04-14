@@ -12,18 +12,47 @@ class Conversation:
         self.story = story  # type: List
         self.current_index = 0
 
-    def current_node(self):
+    def current_node(self) -> Node:
+        """
+        :return: Node
+        """
         return self.story[self.current_index]
 
     def set_current_node(self, from_node):
         self.current_index = self.story.index(from_node)
 
     def next_node(self):
+        next_index = self._find_node(self.current_node().next_label)
+        if next_index:
+            self.current_index = next_index
+            return self.story[next_index]
+
         self.current_index += 1
         try:
             return self.story[self.current_index]
         except IndexError:
             return None
+
+    def get_choice_reply(self, choice_sentence) -> Node:
+        """
+
+        :param choice_sentence: Sentence
+        :return: :raise ValueError:
+        """
+        if not isinstance(self.story[self.current_index], Question):
+            raise ValueError('Current point in story is not a question')
+
+        question = self.story[self.current_index]
+        for a in question.answers:
+            if a.match_reply(choice_sentence):
+                # find label
+                label = a.get_next_label()
+                try:
+                    return self.story[self._find_node(label)]
+                except IndexError:
+                    return None
+
+        return None
 
     def get_intent_reply(self, intent_response) -> Node:
         """
@@ -39,19 +68,34 @@ class Conversation:
             if a.match_reply(intent_response):
                 # find label
                 label = a.get_next_label()
-                return self._find_node(label)
+                try:
+                    return self.story[self._find_node(label)]
+                except IndexError:
+                    return None
 
         return self._find_global_handler(intent_response)
 
     def _find_node(self, label):
+        """
+        Return index of the node associated to label
+        :param label: string
+        :return: int
+        """
+        if label is None:
+            return None
+
         try:
-            return next(n for n in self.story if n.label == label)
+            index = next(i for i, n in enumerate(self.story) if n.label == label)
+            return index
         except StopIteration:
             return None
 
     def _find_global_handler(self, intent_response):
         label = 'Handle' + intent_response.intent.name
-        return self._find_node(label)
+        try:
+            return self.story[self._find_node(label)]
+        except IndexError:
+            return None
 
     @staticmethod
     def load_from_json(encoded):
@@ -82,7 +126,7 @@ class Conversation:
             """
             if 'm' in dict:
                 # Is a simple Node
-                return Node(dict['m'], dict.get('label'))
+                return Node(dict['m'], dict.get('label'), dict.get('next'))
             elif 'messages' in dict:
                 # Node with multiple messages
                 return RandomMessageNode(dict['messages'], dict.get('label'))
@@ -91,7 +135,7 @@ class Conversation:
                 if 'answers' not in dict:
                     raise ValueError('Each question must have answers')
                 answers = [build_answer(a) for a in dict['answers']]
-                return Question(dict['q'], answers)
+                return Question(dict['q'], answers, dict.get('label'))
 
             raise ValueError('Each line must be a message or a question')
 
@@ -99,6 +143,7 @@ class Conversation:
 
         story = [create_node(record) for record in decoded]
         return Conversation(story)
+
 
 
 
