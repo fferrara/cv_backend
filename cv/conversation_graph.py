@@ -49,9 +49,19 @@ class RandomMessageNode(Node):
 
 
 class Question:
-    def __init__(self, question, answers, label=None):
+    def __init__(self, question, answers, fallback, label=None):
+        """
+
+        The fallback intent is matched when none of the answers matched
+
+        :param string question: The question text
+        :param answers:
+        :param string fallback: The fallback intent name
+        :param label:
+        """
         self.question = question
         self.answers = answers
+        self.fallback = fallback
         self.label = label or id_generator()
 
     def __eq__(self, other):
@@ -68,10 +78,10 @@ class Question:
 
     def get_next(self, reply):
         try:
-            next_node = next(a for a in self.answers if a.match_reply(reply))
-            return next_node
+            matched_answer = next(a for a in self.answers if a.match_reply(reply))
+            return matched_answer.get_next_label()
         except StopIteration:
-            return None
+            return self.fallback
 
 
 class Answer(ABC):

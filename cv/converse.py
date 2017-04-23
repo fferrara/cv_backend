@@ -5,6 +5,7 @@ from rx.core.py3.observable import Observable
 from cv.conversation import Conversation
 from cv.conversation_graph import Question, ChoiceAnswer
 from cv.luis import LUISHandler
+from shared.exceptions import LabelNotFoundException
 
 
 __author__ = 'Flavio Ferrara'
@@ -95,11 +96,15 @@ class Conversable:
         if sentence.isHandshake():
             return self.start()
 
-        if sentence.isChoice():
-            node = self.conversation.get_choice_reply(sentence.text)
-        else:
-            response = self.handler.process_sentence(sentence)
-            node = self.conversation.get_intent_reply(response)
+        try:
+            if sentence.isChoice():
+                node = self.conversation.get_choice_reply(sentence.text)
+            else:
+                response = self.handler.process_sentence(sentence)
+                node = self.conversation.get_intent_reply(response)
+        except LabelNotFoundException:
+            print('Label not found while processing {}'.format(sentence.text))
+            return Observable.empty()
 
         return Observable.from_list(self._continue_topic(node))
 

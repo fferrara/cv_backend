@@ -2,6 +2,7 @@ import json
 
 from cv.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode, ChoiceAnswer
 from cv.intent import Intent, Entity
+from shared.exceptions import LabelNotFoundException
 
 
 __author__ = 'Flavio Ferrara'
@@ -22,16 +23,13 @@ class Conversation:
         self.current_index = self.story.index(from_node)
 
     def next_node(self):
-        next_index = self._find_node(self.current_node().next_label)
-        if next_index:
+        try:
+            next_index = self._find_node(self.current_node().next_label)
             self.current_index = next_index
             return self.story[next_index]
-
-        self.current_index += 1
-        try:
+        except LabelNotFoundException:
+            self.current_index += 1
             return self.story[self.current_index]
-        except IndexError:
-            return None
 
     def get_choice_reply(self, choice_sentence) -> Node:
         """
@@ -47,10 +45,7 @@ class Conversation:
             if a.match_reply(choice_sentence):
                 # find label
                 label = a.get_next_label()
-                try:
-                    return self.story[self._find_node(label)]
-                except IndexError:
-                    return None
+                return self.story[self._find_node(label)]
 
         return None
 
@@ -64,16 +59,13 @@ class Conversation:
             raise ValueError('Current point in story is not a question')
 
         question = self.story[self.current_index]
-        for a in question.answers:
-            if a.match_reply(intent_response):
-                # find label
-                label = a.get_next_label()
-                try:
-                    return self.story[self._find_node(label)]
-                except IndexError:
-                    return None
+        label = question.get_next(intent_response)
+        print(label)
 
-        return self._find_global_handler(intent_response)
+        if label:
+            return self.story[self._find_node(label)]
+        else:
+            return self._find_global_handler(intent_response)
 
     def _find_node(self, label):
         """
@@ -82,20 +74,17 @@ class Conversation:
         :return: int
         """
         if label is None:
-            return None
+            raise LabelNotFoundException
 
         try:
             index = next(i for i, n in enumerate(self.story) if n.label == label)
             return index
         except StopIteration:
-            return None
+            raise LabelNotFoundException
 
     def _find_global_handler(self, intent_response):
         label = 'Handle' + intent_response.intent.name
-        try:
-            return self.story[self._find_node(label)]
-        except IndexError:
-            return None
+        return self.story[self._find_node(label)]
 
     @staticmethod
     def load_from_json(encoded):
@@ -132,10 +121,11 @@ class Conversation:
                 return RandomMessageNode(dict['messages'], dict.get('label'))
             elif 'q' in dict:
                 # Is a question
-                if 'answers' not in dict:
-                    raise ValueError('Each question must have answers')
-                answers = [build_answer(a) for a in dict['answers']]
-                return Question(dict['q'], answers, dict.get('label'))
+                if 'answers' not in dict and 'fallback' not in dict:
+                    raise ValueError('Each question must have answers or fallback')
+                answers = 'answers' in dict and [build_answer(a) for a in dict['answers']] or []
+                fallback = dict.get('fallback')
+                return Question(dict['q'], answers, fallback, dict.get('label'))
 
             raise ValueError('Each line must be a message or a question')
 
