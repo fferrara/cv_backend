@@ -1,5 +1,4 @@
-import json
-import jsonpickle
+import os
 from ws.rx_ws import RxWebSocketProtocol, RxWebSocketServerFactory
 
 __author__ = 'Flavio Ferrara'
@@ -12,8 +11,8 @@ except ImportError:
 
 
 class WebSocketServer():
-    HOST = 'localhost'
-    PORT = 9000
+    HOST = os.environ["WS_HOST"]
+    PORT = os.environ["WS_PORT"]
 
     def __init__(self, conversation_json):
         self.factory = RxWebSocketServerFactory(conversation_json)
