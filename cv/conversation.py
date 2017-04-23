@@ -41,13 +41,9 @@ class Conversation:
             raise ValueError('Current point in story is not a question')
 
         question = self.story[self.current_index]
-        for a in question.answers:
-            if a.match_reply(choice_sentence):
-                # find label
-                label = a.get_next_label()
-                return self.story[self._find_node(label)]
+        label = question.get_next(choice_sentence)
 
-        return None
+        return self.story[self._find_node(label)]
 
     def get_intent_reply(self, intent_response) -> Node:
         """
@@ -60,7 +56,6 @@ class Conversation:
 
         question = self.story[self.current_index]
         label = question.get_next(intent_response)
-        print(label)
 
         if label:
             return self.story[self._find_node(label)]

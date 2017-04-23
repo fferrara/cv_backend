@@ -2,10 +2,18 @@
   { "m": "It's great to have you here! How are you doing? :grin:"},
   { "m": "I'm Flavio, a creative software engineer."},
   { "m": "Welcome to the my very own first-of-its-kind <strong>conversational resume</strong>."},
-  { "q": "Would you like to know something specific about me?", "answers": [
+  { "q": "You're probably wondering <em>What is this stuff?</em>", "answers": [
+    {"choice": "Yes, indeed", "next": "ExplainCV"},
+    {"choice": "No, I got it", "next": "StartCV"}
+  ]},
+  { "label": "ExplainCV", "m": "This is a resume you can converse with. Just <b>asking it</b> about my professional talents!"},
+  { "m": "Yeah, I know. Pretty unconventional."},
+  { "m": "But great companies want to hire great professionals. So, why bother with copy-pasted templates?"},
+  { "m": "Don't worry though, this resume is even more informative than the ordinary ones.", "next": "InitialQuestion"},
+  { "label": "StartCV", "m": "Great! So we can start talking.", "next": "InitialQuestion"},
+  { "label": "InitialQuestion", "q": "Would you like to know something specific about me?", "answers": [
       {"intent": "Education", "next": "StartEducation"},
       {"intent": "WorkExperience", "next": "StartWorkExperience"},
-      {"intent": "Project", "next": "StartProject"},
       {"intent": "TechSkill", "next": "StartTechSkill"},
       {"intent": "Personality", "next": "StartPersonality"},
       {"intent": "KnowProject", "entities": ["pic4turtle"], "next": "StartPic4Turtle"},
@@ -19,48 +27,67 @@
       {"choice": "Education", "next": "StartEducation"},
       {"choice": "Work experience", "next": "StartWorkExperience"}
     ]},
-    { "label": "StartEducation", "m": "I took my <strong>Master's degree</strong> (still Computer Engineering) in the Politecnico in 2015. Final grade: 107/110."},
-  { "m": "Here's <a href=\"https://www.amazon.com/SMAD-System-Multimodal-Assistive-Domotics/dp/3659829609\">my master thesis</a>, btw. I developed a domotic system for people with motor disabilities."},
+  { "label": "StartEducation", "checkers": {"endEducation": "RepeatEducation"}, "m": "I took my <strong>Master's degree</strong> (still Computer Engineering) in the Politecnico in 2015. Final grade: 107/110."},
+      { "m": "Here's <a href=\"https://www.amazon.com/SMAD-System-Multimodal-Assistive-Domotics/dp/3659829609\">my master thesis</a>, btw. I developed a domotic system for people with motor disabilities."},
   { "q": "Would you like to know more?", "answers": [
       {"choice": "Please! :thumbsup: ", "next": "ContinueEducation"},
       {"choice": "No, next one :sleeping:", "next": "Topics"}
     ]},
   { "label": "ContinueEducation", "m": "I got the <strong>bachelor's degree</strong> in Computer Engineering from the Politecnico di Milano. It was 2012."},
-  { "m": "Then, I spent 1 year at the Universidade Federal do Espirito Santo, in Vitória, Brazil."},
-  { "label": "Topics", "q": "What would you like to know next?", "setters": ["endEducation"], "answers": [
-    {"intent": "Education", "next": "RepeatEducation"},
+      { "m": "Then, I spent 1 year at the Universidade Federal do Espirito Santo, in Vitória, Brazil.", "setters": ["endEducation"]},
+  { "label": "Topics", "q": "What would you like to know next?",  "answers": [
+    {"intent": "Education", "next": "StartEducation"},
     {"intent": "Work experience", "next": "StartWorkExperience"},
     {"intent": "Projects", "next": "StartProjects"},
       {"intent": "TechSkill", "next": "StartTechSkill"},
       {"intent": "Personality", "next": "StartPersonality"}
-  ]},
+  ], "fallback": "AskTopic"},
   { "label": "RepeatEducation", "m": "Again? I swear there's more to know about me!", "next": "ChooseTopics"},
-  { "label": "AskTopic", "m": "Ok... sorry, I'm not sure I got what you mean. :thinking:", "next": "ChooseTopics"},
+  { "label": "AskTopic", "m": "Ok... :thinking: sorry, I'm not sure I got what you mean. "},
+  { "messages": [
+    "After all, I'm <b>just a bot</b>. :pensive:",
+    "Be fair with me, I'd only been trained to talk about Flavio",
+    "I'm not <b>that</b> smart :pensive: "],
+    "next": "ChooseTopics"},
   { "label": "ChooseTopics", "q": "What would you be interested in?", "answers": [
     {"choice": "Education", "next": "StartEducation"},
-    {"choice": "Work experience", "next": "StartWorkExperience"}
+    {"choice": "Work experience", "next": "StartWorkExperience"},
+    {"choice": "Software skills", "next": "StartTechSkills"},
+    {"choice": "Character", "next": "StartPersonality"}
   ]},
   { "label": "StartWorkExperience", "m": "Right after getting my degree, I started working for Mogai/EBRAND at Vitória."},
-  { "m": "It was a cool R&D project called <a href=\"https://www.pic4turtle.com\">Pic4Turtle</a>"},
-  { "m": "Since mid 2016, I switched to a startup called <a href=\"https://www.kuau.com.br\">KUAU</a>, committed to <strong>radically change secundary education</strong> in Brazil."},
-{ "m": "My current job description is <strong>technical lead</strong>. In a small group such as ours, this means a bunch of tasks."},
-{ "m": "Full-stack developer, team leader and product manager."},
+      { "m": "It was a cool R&D project called <a href=\"https://www.pic4turtle.com\">Pic4Turtle</a>"},
+      { "m": "Since mid 2016, I switched to a startup called <a href=\"https://www.kuau.com.br\">KUAU</a>, committed to <strong>radically change secundary education</strong> in Brazil."},
+      { "m": "My current job description is <strong>technical lead</strong>. In a small group such as ours, this means a bunch of tasks."},
+      { "m": "Full-stack developer, team leader and product manager."},
 { "q": "Willing to know better one of such projects?", "answers": [
     {"choice": "Pic4turtle", "next": "StartPic4Turtle"},
     {"choice": "Kuau", "next": "StartKuau"},
     {"choice": "Nope", "next": "Topics"}
   ]},
   { "label": "StartPic4Turtle", "m": "Pic4Turtle is a social platform about sea turtles and environmental awareness."},
-  { "m": "My job was focused on classifying sea turtle species in pictures."},
-  { "m": "I tackled the problem using <strong>deep learning</strong> (convolutional neural networks) to transform images and make them easier to classify."},
-  { "m": "Using a pretty challenging dataset, with real-world pictures, the model achieved optimal results (nearly 90% accuracy)."},
-  { "m": "Are you interested in machine learning too?" },
-  { "q": "Why don't you drop me a line or write down your email address?", "fallback": "Topics"},
+      { "m": "My job was focused on classifying sea turtle species in pictures."},
+      { "m": "I tackled the problem using <strong>deep learning</strong> (convolutional neural networks) to transform images and make them easier to classify."},
+      { "m": "Using a pretty challenging dataset, with real-world pictures, the model achieved optimal results (nearly 90% accuracy)."},
+      { "m": "Are you interested in machine learning too?" },
+      { "q": "Why don't you drop me a line or write down your email address?", "fallback": "Topics"},
   { "label": "StartKuau", "m": "Glad you asked! Kuau is the first digital platform for professional orientation in Brazil."},
-  { "m": "We target students in secundary education to help them find the career of their dream."},
-  { "m": "It took less than one year to go from the idea to have dozens of partner schools and hundreds of students."},
-  { "m": "I feel great <b>designing and building digital products</b>, from the idea all the way to the App Store."},
-  { "m": "I learned a lot <b>leading</b> a small team of young and smart devs to build a shared know-how." },
-  { "m": "Also, we have a wonderful koala mascot :koala:" },
-  { "q": "Sounds interesting? I look forward to hear from you!", "fallback": "Topics"}
+      { "m": "We target students in secundary education to help them find the career of their dream."},
+      { "m": "It took less than one year to go from the idea to have dozens of partner schools and hundreds of students."},
+      { "m": "I feel great <b>designing and building digital products</b>, from the idea all the way to the App Store."},
+      { "m": "I learned a lot <b>leading</b> a small team of young and smart devs to build a shared know-how." },
+      { "m": "Also, we have a wonderful koala mascot :koala:" },
+      { "q": "Sounds interesting? I look forward to hear from you!", "fallback": "Topics"},
+  { "label": "StartTechSkills", "m": "My favourite field in computer science is machine learning and data science."},
+      { "m": "I have both theoretical knowledge and practical experience with non-trivial problems."},
+      { "m": "What's in my toolbox: Python, numpy stack, scikit-learn, Caffe (deep learning)."},
+      { "m": "I'm experienced in web development, too. I realized several projects using Javascript with Angular. "},
+      { "m": "Including this very website :wink:"},
+      { "q": "Would you like to know more?", "answers": [
+      {"choice": "Please! :thumbsup: ", "next": "ContinueTechSkills"},
+      {"choice": "No, next one :sleeping:", "next": "Topics"}
+    ]},
+  { "label": "ContinueTechSkills", "m": "On the backend side, I'm proficient with Java EE and PHP (Zend)."},
+   { "m": "It's not my specialty, but I managed the system infrastructure for two medium-size platforms."},
+   { "m": "Finally, I really value automated testing and Test-Driven Development.", "next": "Topics"}
 ]
