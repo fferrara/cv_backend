@@ -71,6 +71,5 @@ class RxWebSocketServerFactory(WebSocketServerFactory):
         if client not in self.clients:
             raise ValueError('Client not connected')
 
-        print('Sending ' + str(msg))
         data = jsonpickle.encode(msg, unpicklable=False).encode('utf8')
         client.sendMessage(data)

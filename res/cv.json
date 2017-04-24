@@ -49,7 +49,7 @@
     ]},
   { "messages": [
     "After all, I'm <b>just a bot</b>. :pensive:",
-    "Be fair with me, I'd only been trained to talk about Flavio",
+    "Be fair with me, I'd only been trained to talk about Flavio.",
     "I'm not <b>that</b> smart :pensive: "],
     "next": "ChooseTopics"},
   { "label": "ChooseTopics", "q": "What would you be interested in?", "answers": [
@@ -84,7 +84,7 @@
       { "m": "Sounds interesting? I look forward to hear from you!", "next": "Topics"},
   { "label": "StartTechSkills", "m": "My favourite field in computer science is machine learning and data science."},
       { "m": "I have both theoretical knowledge and practical experience with non-trivial problems."},
-      { "m": "What's in my toolbox: Python, numpy stack, scikit-learn, Caffe (deep learning)."},
+      { "m": "What's in my toolbox: Python, numpy stack, scikit-learn, <a href=\"http://caffe.berkeleyvision.org/\">Caffe</a> (deep learning)."},
       { "m": "I'm experienced in web development, too. I realized several projects using Javascript with Angular. "},
       { "m": "Including this very website :wink:"},
       { "q": "Would you like to know more?", "answers": [
@@ -93,5 +93,11 @@
     ]},
   { "label": "ContinueTechSkills", "m": "On the backend side, I'm proficient with Java EE and PHP (Zend)."},
    { "m": "It's not my specialty, but I managed the system infrastructure for two medium-size platforms."},
-   { "m": "Finally, I really value automated testing and Test-Driven Development.", "next": "Topics"}
+   { "m": "Finally, I really value automated testing and Test-Driven Development.", "next": "Topics"},
+  { "label": "StartPersonality", "m": "How can I describe me? In a word, <strong>eclectic</strong>."},
+   { "m": "There is my analytical self (<em>I’m a computer scientist, after all</em>). I’m reasonable, logical, assertive and dedicated."},
+   { "m": "Then we have my creative side, which makes me curious, intuitive, different and friendly."},
+  { "m": "I take <b>data-driven technical and business decision</b>... "},
+  { "m": "...while I trust my <b>instinct and empathy</b> when it comes to colleagues and end-users."},
+  { "m": "I run on challenges, rather than coffee. And value meaning, rather than money.", "next": "Topics"}
 ]
