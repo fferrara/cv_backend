@@ -1,4 +1,5 @@
 import json
+import logging
 import traceback
 import jsonpickle
 from cv.conversation import Conversation
@@ -19,16 +20,16 @@ class RxWebSocketProtocol(WebSocketServerProtocol):
         self.factory = None
 
     def onConnect(self, request):
-        print("Client connecting: {0}".format(request.peer))
+        logging.info("NEW CLIENT CONNECTING: {0}".format(request.peer))
 
     def onOpen(self):
         self.factory.init_client(self)
 
     def onMessage(self, payload, isBinary):
         if isBinary:
-            print("Binary message received: {0} bytes".format(len(payload)))
+            logging.info("Binary message received: {0} bytes".format(len(payload)))
         else:
-            print("Text message received: {0}".format(payload.decode('utf8')))
+            logging.info("Text message received: {0}".format(payload.decode('utf8')))
 
         self.factory.propagate(self, payload.decode('utf-8'))
 
@@ -71,5 +72,6 @@ class RxWebSocketServerFactory(WebSocketServerFactory):
         if client not in self.clients:
             raise ValueError('Client not connected')
 
+        logging.info('Sending ' + str(msg))
         data = jsonpickle.encode(msg, unpicklable=False).encode('utf8')
         client.sendMessage(data)

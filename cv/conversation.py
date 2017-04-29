@@ -1,7 +1,7 @@
 import json
 
 from cv.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode, ChoiceAnswer
-from cv.intent import Intent, Entity
+from cv.listen.intent import Intent, Entity
 from shared.exceptions import LabelNotFoundException
 
 
@@ -57,10 +57,11 @@ class Conversation:
         question = self.story[self.current_index]
         label = question.get_next(intent_response)
 
-        if label:
-            return self.story[self._find_node(label)]
-        else:
-            return self._find_global_handler(intent_response)
+        if label is None:
+            label = self._get_global_handler(intent_response) or question.fallback
+
+        return self.story[self._find_node(label)]
+
 
     def _find_node(self, label):
         """
@@ -77,9 +78,8 @@ class Conversation:
         except StopIteration:
             raise LabelNotFoundException
 
-    def _find_global_handler(self, intent_response):
-        label = 'Handle' + intent_response.intent.name
-        return self.story[self._find_node(label)]
+    def _get_global_handler(self, intent_response):
+        return 'Handle' + intent_response.intent.name
 
     @staticmethod
     def load_from_json(encoded):

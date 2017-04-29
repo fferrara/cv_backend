@@ -3,7 +3,7 @@ import collections
 import random
 import string
 
-from cv.intent import Entity, IntentResponse
+from cv.listen.intent import Entity, IntentResponse
 
 
 __author__ = 'Flavio Ferrara'
@@ -81,7 +81,7 @@ class Question:
             matched_answer = next(a for a in self.answers if a.match_reply(reply))
             return matched_answer.get_next_label()
         except StopIteration:
-            return self.fallback
+            return None
 
 
 class Answer(ABC):

@@ -2,7 +2,7 @@ from unittest import TestCase
 
 from cv.conversation import Conversation
 from cv.conversation_graph import Node, Question, IntentAnswer
-from cv.intent import Intent, Entity, IntentResponse
+from cv.listen.intent import Intent, Entity, IntentResponse
 
 
 __author__ = 'Flavio Ferrara'

@@ -4,7 +4,7 @@ from rx.core.py3.observable import Observable
 
 from cv.conversation import Conversation
 from cv.conversation_graph import Question, ChoiceAnswer
-from cv.luis import LUISHandler
+from cv.listen.luis import LUISHandler
 from shared.exceptions import LabelNotFoundException
 
 
