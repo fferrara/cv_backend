@@ -2,7 +2,7 @@ from ws.ws import WebSocketServer
 import logging
 
 def main():
-    logging.basicConfig(filename='cv.log', format='%(asctime)s %(message)s', level=logging.INFO)
+    logging.basicConfig(filename='cv.log', format='%(asctime)s %(message)s', level=logging.WARNING)
 
     with open('res/cv.json', encoding='utf-8') as f:
         conversation_json = f.read()
