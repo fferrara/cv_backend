@@ -1,5 +1,6 @@
-from ws.ws import WebSocketServer
 import logging
+
+from app.services.ws import WebSocketServer
 
 
 def main(settings):

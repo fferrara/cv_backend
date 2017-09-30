@@ -1,14 +1,13 @@
 import json
 import logging
 import traceback
+
 import jsonpickle
-from cv.conversation import Conversation
 from cv.converse import Conversable, Sentence
+from app.cv.conversation import Conversation
 from autobahn.asyncio import WebSocketServerProtocol, WebSocketServerFactory
 import rx
 from rx.subjects import Subject
-
-__author__ = 'Flavio Ferrara'
 
 asyncio = rx.config['asyncio']
 

@@ -1,10 +1,9 @@
-from abc import ABC, abstractmethod
 import collections
 import random
 import string
+from abc import ABC, abstractmethod
 
-from cv.listen.intent import Entity, IntentResponse
-
+from app.cv.listen import Entity, IntentResponse
 
 __author__ = 'Flavio Ferrara'
 
