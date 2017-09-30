@@ -1,7 +1,0 @@
-{
-  "name": "fferrara-backend",
-  "description": "Python backend for fferrara.me, deployed on Heroku",
-  "image": "heroku/python",
-  "repository": "https://github.com/fferrara/cv_backend.git",
-  "keywords": ["python" ]
-}
