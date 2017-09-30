@@ -1,9 +1,8 @@
 from unittest import TestCase
 
-from cv.conversation_graph import Node, Question, IntentAnswer
-from cv.listen.intent import Intent, Entity, IntentResponse
-
 from app.cv.conversation import Conversation
+from app.cv.conversation_graph import Node, Question, IntentAnswer
+from app.cv.listen.intent import Intent, Entity, IntentResponse
 
 __author__ = 'Flavio Ferrara'
 

@@ -1,8 +1,7 @@
 import json
 
-from cv.listen.intent import Intent, Entity
-
 from app.cv.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode, ChoiceAnswer
+from app.cv.listen.intent import Intent, Entity
 from app.services.exceptions import LabelNotFoundException
 
 __author__ = 'Flavio Ferrara'

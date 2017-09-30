@@ -1,7 +1,7 @@
 import json
 
-from cv.conversation_graph import Question, ChoiceAnswer
-from cv.listen.luis import LUISHandler
+from app.cv.conversation_graph import Question, ChoiceAnswer
+from app.cv.listen.luis import LUISHandler
 from rx.core.py3.observable import Observable
 
 from app.cv.conversation import Conversation
@@ -68,7 +68,7 @@ class QuestionMessage:
 
 
 class Conversable:
-    def __init__(self, conversation, handler=None):
+    def __init__(self, conversation, settings, handler=None):
         """
 
 
@@ -81,7 +81,7 @@ class Conversable:
         if handler is not None:
             self.handler = handler
         else:
-            self.handler = LUISHandler()
+            self.handler = LUISHandler(settings)
 
     def start(self):
         return Observable.from_list(self._continue_topic())

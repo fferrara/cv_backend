@@ -3,7 +3,7 @@ import random
 import string
 from abc import ABC, abstractmethod
 
-from app.cv.listen import Entity, IntentResponse
+from app.cv.listen.intent import Entity, IntentResponse
 
 __author__ = 'Flavio Ferrara'
 

@@ -3,13 +3,16 @@ import logging
 import traceback
 
 import jsonpickle
-from cv.converse import Conversable, Sentence
-from app.cv.conversation import Conversation
-from autobahn.asyncio import WebSocketServerProtocol, WebSocketServerFactory
 import rx
-from rx.subjects import Subject
+from autobahn.asyncio import WebSocketServerProtocol, WebSocketServerFactory
+
+from app.cv.conversation import Conversation
+from app.cv.converse import Conversable, Sentence
 
 asyncio = rx.config['asyncio']
+from rx.subjects import Subject
+
+__author__ = 'Flavio Ferrara'
 
 
 class RxWebSocketProtocol(WebSocketServerProtocol):
@@ -33,14 +36,15 @@ class RxWebSocketProtocol(WebSocketServerProtocol):
 
 
 class RxWebSocketServerFactory(WebSocketServerFactory):
-    def __init__(self, conversation_json):
+    def __init__(self, conversation_json, settings):
         WebSocketServerFactory.__init__(self)
+        self._settings = settings
         self.clients = {}
         self.conversation_structure = conversation_json
 
     def init_client(self, client):
         my_conversation = Conversation.load_from_json(self.conversation_structure)
-        conversable = Conversable(my_conversation)
+        conversable = Conversable(my_conversation, settings=self._settings)
         ws_stream = Subject()
 
         self.clients[client] = ws_stream

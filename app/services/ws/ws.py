@@ -1,25 +1,20 @@
-import os
-
-from app.services.ws import RxWebSocketProtocol, RxWebSocketServerFactory
+from app.services.ws.rx_ws import RxWebSocketProtocol, RxWebSocketServerFactory
 
 __author__ = 'Flavio Ferrara'
 
 try:
     import asyncio
 except ImportError:
-    ## Trollius >= 0.3 was renamed
+    # Trollius >= 0.3 was renamed
     import trollius as asyncio
 
 
-class WebSocketServer():
-    HOST = os.environ["WS_HOST"]
-    PORT = os.environ["WS_PORT"]
-
-    def __init__(self, conversation_json):
-        self.factory = RxWebSocketServerFactory(conversation_json)
+class WebSocketServer:
+    def __init__(self, conversation_json, settings):
+        self.factory = RxWebSocketServerFactory(conversation_json, settings)
         self.factory.protocol = RxWebSocketProtocol
         self.loop = asyncio.get_event_loop()
-        coro = self.loop.create_server(self.factory, self.HOST, self.PORT)
+        coro = self.loop.create_server(self.factory, settings['WS_HOST'], settings['WS_PORT'])
         self.server = self.loop.run_until_complete(coro)
 
     # def send(self, msg):

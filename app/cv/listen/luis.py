@@ -8,7 +8,8 @@ __author__ = 'Flavio Ferrara'
 
 
 class LUISHandler(SentenceHandler):
-    URL = os.environ["LUIS_URL"]
+    def __init__(self, config):
+        self.URL = config['LUIS_URL']
 
     def process_sentence(self, sentence):
         """
