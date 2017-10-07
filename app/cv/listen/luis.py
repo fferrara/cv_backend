@@ -2,7 +2,7 @@ import os
 
 import requests
 
-from app.cv.listen import SentenceHandler, IntentResponse, Intent, Entity
+from app.cv.listen.intent import SentenceHandler, IntentResponse, Intent, Entity
 
 __author__ = 'Flavio Ferrara'
 
@@ -10,6 +10,7 @@ __author__ = 'Flavio Ferrara'
 class LUISHandler(SentenceHandler):
     def __init__(self, config):
         self.URL = config['LUIS_URL']
+        print(self.URL)
 
     def process_sentence(self, sentence):
         """
@@ -27,9 +28,13 @@ class LUISHandler(SentenceHandler):
             raise RuntimeError
 
         json = r.json()
+
+        print(json)
         response = IntentResponse(
             Intent(json['topScoringIntent']['intent']),
             [Entity(e['entity']) for e in json['entities']]
         )
+
+        print(response.intent.name)
 
         return response

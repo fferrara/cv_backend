@@ -1,0 +1,15 @@
+version: '3'
+services:
+  server:
+    build:
+      context: .
+    command: ['python', '-u', '-m', 'app.local_app']
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./app:/code/app
+      - ./settings:/code/settings
+      - ./resources:/code/resources
+    environment:
+      - PYTHONUNBUFFERED=0
+      - LUIS_URL

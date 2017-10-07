@@ -59,6 +59,9 @@ class Conversation:
         if label is None:
             label = self._get_global_handler(intent_response) or question.fallback
 
+        import sys
+        print(label, file=sys.stderr)
+
         return self.story[self._find_node(label)]
 
 
