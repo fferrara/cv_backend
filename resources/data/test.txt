@@ -8,6 +8,36 @@ where do you live
 what's your day-to-day like?
 where have you worked at?
 tell me about your projects
-where have you worked?
 tell me something about some projects you've work
+Do you have availability to travel?
+Do you have experience with deep learning?
+Do you know ionic?
+Education
+Experience
+Have you ever written JavaScript?
+Have you traveled to Brazil?
+How did you create this CV?
+How does this work?
+How many years are you working for?
+I am the lead of ML team at this company. I found you on Linkedin. My email is niceguy@company.com
+Knock knock
+School
 Talk me about yourself
+Tell me a joke
+Tell me where have you worked
+What is the meaning of life?
+What programming languages do you use?
+What technologies do you know?
+Where did you study?
+Where have you worked?
+Where were you born?
+do you love music?
+i love you
+what is your greatest accomplishment?
+what is your greatest acomplishment?
+what is your name?
+what studies do you have?
+what's your favorite programming language?
+wher have you worked ?
+where do you live?
+yes
