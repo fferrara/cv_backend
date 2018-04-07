@@ -1,9 +1,11 @@
 FROM python:3.6-slim
 
-ADD ./app /code/app
-ADD ./settings /code/settings
-ADD ./resources /code/resources
-ADD ./requirements.txt /code/requirements.txt
+COPY ./app /code/app
+COPY ./settings /code/settings
+COPY ./resources /code/resources
+COPY ./Pipfile /code
+COPY ./Pipfile.lock /code
 
 WORKDIR /code
-RUN pip install -r requirements.txt
+RUN pip install pipenv
+RUN pipenv install --system -d

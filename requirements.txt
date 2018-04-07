@@ -1,5 +1,0 @@
-autobahn==0.17.1
-Rx==1.5.7
-six==1.10.0
-jsonpickle==0.9.4
-requests==2.6.2
