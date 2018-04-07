@@ -12,7 +12,7 @@
   },
   {
     "label": "HandlePython",
-    "m": "Of course, Python is my favourite language!"
+    "m": "Of course, Python is my favourite language! :raised_hands:"
   },
   {
     "m": "I embraced the Zen of Python years ago. So powerful, elegant and flexible.",
@@ -24,6 +24,22 @@
   },
   {
     "m": "Even now that <a href=\"https://startups.stackexchange.com/questions/9131/why-is-java-not-so-popular-in-software-development-startup-projects\">it's not trendy anymore</a>.",
+    "next": "Topics"
+  },
+  {
+    "label": "HandleJS",
+    "m": "Yep! I developed a couple of medium-scale Single Page Applications using AngularJS/Angular."
+  },
+  {
+    "m": "But I can't keep up with the pace of new frameworks...",
+    "next": "Topics"
+  },
+  {
+    "label": "HandleUnknownLanguage",
+    "m": "No, sorry"
+  },
+  {
+    "m": "...",
     "next": "Topics"
   }
 ]

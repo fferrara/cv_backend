@@ -3,6 +3,9 @@
     "include": "resources/cv/intro.json"
   },
   {
+    "include": "resources/cv/open_questions.json"
+  },
+  {
     "include": "resources/cv/education.json"
   },
   {

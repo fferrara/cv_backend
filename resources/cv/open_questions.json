@@ -1,0 +1,114 @@
+[
+  {
+    "label": "InitialQuestion",
+    "q": "Would you like to know something specific about me?",
+    "answers": [
+      {
+        "intent": "KnowProject",
+        "entities": [
+          "pic4turtle"
+        ],
+        "next": "HandlePic4Turtle"
+      },
+      {
+        "intent": "KnowProject",
+        "entities": [
+          "kuau"
+        ],
+        "next": "HandleKuau"
+      },
+      {
+        "intent": "TechSkill",
+        "entities": [
+          "java"
+        ],
+        "next": "HandleJava"
+      },
+      {
+        "intent": "KnowLanguage",
+        "entities": [
+          "java"
+        ],
+        "next": "HandleJava"
+      },
+      {
+        "intent": "KnowLanguage",
+        "entities": [
+          "python"
+        ],
+        "next": "HandlePython"
+      },
+      {
+        "intent": "KnowLanguage",
+        "entities": [
+          "javascript"
+        ],
+        "next": "HandleJS"
+      },
+      {
+        "intent": "KnowLanguage",
+        "entities": [
+          "*"
+        ],
+        "next": "HandleUnknownLanguage"
+      }
+    ],
+    "fallback": "HandleNone"
+  },
+  {
+    "label": "Topics",
+    "q": "What would you like to know next?",
+    "answers": [
+      {
+        "intent": "KnowProject",
+        "entities": [
+          "pic4turtle"
+        ],
+        "next": "HandlePic4Turtle"
+      },
+      {
+        "intent": "KnowProject",
+        "entities": [
+          "kuau"
+        ],
+        "next": "HandleKuau"
+      },
+      {
+        "intent": "TechSkill",
+        "entities": [
+          "java"
+        ],
+        "next": "HandleJava"
+      },
+      {
+        "intent": "KnowLanguage",
+        "entities": [
+          "java"
+        ],
+        "next": "HandleJava"
+      },
+      {
+        "intent": "KnowLanguage",
+        "entities": [
+          "python"
+        ],
+        "next": "HandlePython"
+      },
+      {
+        "intent": "KnowLanguage",
+        "entities": [
+          "javascript"
+        ],
+        "next": "HandleJS"
+      },
+      {
+        "intent": "KnowLanguage",
+        "entities": [
+          "*"
+        ],
+        "next": "HandleUnknownLanguage"
+      }
+    ],
+    "fallback": "HandleNone"
+  }
+]

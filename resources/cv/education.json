@@ -30,28 +30,8 @@
     "m": "Then, I spent 1 year at the Universidade Federal do Espirito Santo, in Vitória, Brazil.",
     "setters": [
       "endEducation"
-    ]
-  },
-  {
-    "label": "Topics",
-    "q": "What would you like to know next?",
-    "answers": [
-      {
-        "intent": "KnowProject",
-        "entities": [
-          "pic4turtle"
-        ],
-        "next": "HandlePic4Turtle"
-      },
-      {
-        "intent": "KnowProject",
-        "entities": [
-          "kuau"
-        ],
-        "next": "HandleKuau"
-      }
     ],
-    "fallback": "HandleNone"
+    "next": "Topics"
   },
   {
     "label": "RepeatEducation",

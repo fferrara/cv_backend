@@ -39,33 +39,5 @@
     "label": "StartCV",
     "m": "Great! So we can start talking.",
     "next": "InitialQuestion"
-  },
-  {
-    "label": "InitialQuestion",
-    "q": "Would you like to know something specific about me?",
-    "answers": [
-      {
-        "intent": "KnowProject",
-        "entities": [
-          "pic4turtle"
-        ],
-        "next": "HandlePic4Turtle"
-      },
-      {
-        "intent": "KnowProject",
-        "entities": [
-          "kuau"
-        ],
-        "next": "HandleKuau"
-      },
-      {
-        "intent": "TechSkill",
-        "entities": [
-          "java"
-        ],
-        "next": "HandleJava"
-      }
-    ],
-    "fallback": "HandleNone"
   }
 ]
