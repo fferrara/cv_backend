@@ -20,6 +20,7 @@ def main(settings):
 
     if settings.get('DEBUG', False):
         application.debug = True
+        logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     else:
         logging.basicConfig(stream=sys.stdout, level=logging.ERROR)
 

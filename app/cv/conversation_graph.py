@@ -133,6 +133,8 @@ class IntentAnswer(Answer):
             return True
         if isinstance(entities, collections.Sequence) and len(set(entities) - self.entities) == 0:
             return True
+        if len(self.entities) == 1 and next(iter(self.entities)).name == '*':
+            return True
 
         return False
 
