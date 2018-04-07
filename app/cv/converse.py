@@ -1,4 +1,7 @@
 import json
+import logging
+
+from raven import Client
 
 from app.cv.conversation_graph import Question, ChoiceAnswer
 from app.cv.listen.luis import LUISHandler
@@ -68,7 +71,7 @@ class QuestionMessage:
 
 
 class Conversable:
-    def __init__(self, conversation, settings, handler=None):
+    def __init__(self, conversation, settings, handler=None, sentry=None):
         """
 
 
@@ -76,6 +79,7 @@ class Conversable:
         :param conversation: Conversation
         :param handler: IntentHandler
         """
+        self.sentry = sentry  # type: Client
         assert isinstance(conversation, Conversation)
         self.conversation = conversation
         if handler is not None:
@@ -99,10 +103,13 @@ class Conversable:
             if sentence.isChoice():
                 node = self.conversation.get_choice_reply(sentence.text)
             else:
+                # Log error to send to Sentry
+                logging.error(f'Received sentence: {sentence.text}')
+
                 response = self.handler.process_sentence(sentence)
                 node = self.conversation.get_intent_reply(response)
         except LabelNotFoundException:
-            print('Label not found while processing {}'.format(sentence.text))
+            logging.error(f'Label not found while processing {sentence.text}')
             return Observable.empty()
 
         return Observable.from_list(self._continue_topic(node))

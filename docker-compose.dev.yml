@@ -3,7 +3,7 @@ services:
   server:
     build:
       context: .
-    command: ['python', '-m', 'app.production_app']
+    command: ['python', '-m', 'app.local_app']
     ports:
       - "9000:9000"
     volumes:

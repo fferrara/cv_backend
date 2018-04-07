@@ -17,13 +17,6 @@ class WebSocketServer:
         coro = self.loop.create_server(self.factory, settings['WS_HOST'], settings['WS_PORT'])
         self.server = self.loop.run_until_complete(coro)
 
-    # def send(self, msg):
-    #     data = jsonpickle.encode(msg, unpicklable=False).encode('utf8')
-    #
-    #     print('Sending ' + str(data))
-    #
-    #     self.factory.send(data)
-
     def run(self):
         try:
             self.loop.run_forever()

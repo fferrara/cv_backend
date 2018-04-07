@@ -10,7 +10,6 @@ __author__ = 'Flavio Ferrara'
 class LUISHandler(SentenceHandler):
     def __init__(self, config):
         self.URL = config['LUIS_URL']
-        print(self.URL)
 
     def process_sentence(self, sentence):
         """
@@ -29,12 +28,9 @@ class LUISHandler(SentenceHandler):
 
         json = r.json()
 
-        print(json)
         response = IntentResponse(
             Intent(json['topScoringIntent']['intent']),
             [Entity(e['entity']) for e in json['entities']]
         )
-
-        print(response.intent.name)
 
         return response

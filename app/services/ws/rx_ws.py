@@ -71,8 +71,6 @@ class RxWebSocketServerFactory(WebSocketServerFactory):
             }).encode('utf-8'))
 
     def send(self, client, msg):
-        import sys
-        print(msg, file=sys.stderr)
         if client not in self.clients:
             raise ValueError('Client not connected')
 

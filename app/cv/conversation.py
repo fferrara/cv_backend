@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from app.cv.conversation_graph import Node, Question, IntentAnswer, RandomMessageNode, ChoiceAnswer
 from app.cv.listen.intent import Intent, Entity
@@ -58,9 +59,6 @@ class Conversation:
 
         if label is None:
             label = self._get_global_handler(intent_response) or question.fallback
-
-        import sys
-        print(label, file=sys.stderr)
 
         return self.story[self._find_node(label)]
 
