@@ -1,0 +1,62 @@
+[
+  {
+    "label": "HandleKnowEducation",
+    "checkers": {
+      "endEducation": "RepeatEducation"
+    },
+    "m": "I took my <strong>Master's degree</strong> (still Computer Engineering) in the Politecnico in 2015. Final grade: 107/110."
+  },
+  {
+    "m": "Here's <a href=\"https://www.amazon.com/SMAD-System-Multimodal-Assistive-Domotics/dp/3659829609\">my master thesis</a>, btw. I developed a domotic system for people with motor disabilities."
+  },
+  {
+    "q": "Would you like to know more?",
+    "answers": [
+      {
+        "choice": "Please! :thumbsup: ",
+        "next": "ContinueEducation"
+      },
+      {
+        "choice": "No, next one :sleeping:",
+        "next": "Topics"
+      }
+    ]
+  },
+  {
+    "label": "ContinueEducation",
+    "m": "I got the <strong>bachelor's degree</strong> in Computer Engineering from the Politecnico di Milano. It was 2012."
+  },
+  {
+    "m": "Then, I spent 1 year at the Universidade Federal do Espirito Santo, in Vitória, Brazil.",
+    "setters": [
+      "endEducation"
+    ]
+  },
+  {
+    "label": "Topics",
+    "q": "What would you like to know next?",
+    "answers": [
+      {
+        "intent": "KnowProject",
+        "entities": [
+          "pic4turtle"
+        ],
+        "next": "HandlePic4Turtle"
+      },
+      {
+        "intent": "KnowProject",
+        "entities": [
+          "kuau"
+        ],
+        "next": "HandleKuau"
+      }
+    ],
+    "fallback": "HandleNone"
+  },
+  {
+    "label": "RepeatEducation",
+    "m": "Again? I swear there's more to know about me!",
+    "next": "ResumeConversation"
+  }
+
+]

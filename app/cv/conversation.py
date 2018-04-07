@@ -1,3 +1,4 @@
+import collections
 import json
 from typing import List
 
@@ -70,65 +71,82 @@ class Conversation:
         :return: int
         """
         if label is None:
-            raise LabelNotFoundException
+            raise LabelNotFoundException(label)
 
         try:
             index = next(i for i, n in enumerate(self.story) if n.label == label)
             return index
         except StopIteration:
-            raise LabelNotFoundException
+            raise LabelNotFoundException(label)
 
     def _get_global_handler(self, intent_response):
         return 'Handle' + intent_response.intent.name
 
-    @staticmethod
-    def load_from_json(encoded):
-        """
-        Instantiate a Conversation object from a JSON string describing its structure
-        :param encoded: The JSON string
-        :return: :raise TypeError:
-        """
 
-        def build_answer(dict):
-            if 'intent' in dict:
-                return IntentAnswer(
-                    dict['next'],
-                    Intent(dict['intent']),
-                    [Entity(e) for e in dict.get('entities', [])])
-            elif 'choice' in dict:
-                return ChoiceAnswer(
-                    dict['next'],
-                    dict['choice'])
+class ConversationJSONFactory:
+    """
+    Instantiate a Conversation object from a JSON string describing
+    its structure
+    :param json_string: The JSON string
+    :return: :raise TypeError:
+    """
+    def __init__(self, json_string):
+        self.json_ = json_string
 
-        def create_node(dict):
-            """
-            Create a Node from a dictionary.
-            It recursively creates the child Nodes and the Edges between them.
-            :param dict:
-            :return: The Node
-            :rtype: Node
-            """
-            if 'm' in dict:
-                # Is a simple Node
-                return Node(dict['m'], dict.get('label'), dict.get('next'))
-            elif 'messages' in dict:
-                # Node with multiple messages
-                return RandomMessageNode(dict['messages'], dict.get('label'))
-            elif 'q' in dict:
-                # Is a question
-                if 'answers' not in dict and 'fallback' not in dict:
-                    raise ValueError('Each question must have answers or fallback')
-                answers = 'answers' in dict and [build_answer(a) for a in dict['answers']] or []
-                fallback = dict.get('fallback')
-                return Question(dict['q'], answers, fallback, dict.get('label'))
+    def build(self):
+        decoded = json.loads(self.json_)
 
-            raise ValueError('Each line must be a message or a question')
-
-        decoded = json.loads(encoded)
-
-        story = [create_node(record) for record in decoded]
+        nodes = [self._create_nodes(record) for record in decoded]
+        story = list(flatten(nodes))
         return Conversation(story)
 
+    def _build_answer(self, dict):
+        if 'intent' in dict:
+            return IntentAnswer(
+                dict['next'],
+                Intent(dict['intent']),
+                [Entity(e) for e in dict.get('entities', [])])
+        elif 'choice' in dict:
+            return ChoiceAnswer(
+                dict['next'],
+                dict['choice'])
+
+    def _create_nodes(self, dict):
+        """
+        Create a Node from a dictionary.
+        It recursively creates the child Nodes and the Edges between them.
+        :param dict:
+        :return: The Node
+        :rtype: Node
+        """
+        if 'include' in dict:
+            # Extract node from other JSON
+            with open(dict['include']) as json_file:
+                decoded = json.load(json_file)
+
+            nodes = [self._create_nodes(record) for record in decoded]
+            return flatten(nodes)
+        if 'm' in dict:
+            # Is a simple Node
+            return Node(dict['m'], dict.get('label'), dict.get('next'))
+        elif 'messages' in dict:
+            # Node with multiple messages
+            return RandomMessageNode(dict['messages'], dict.get('label'))
+        elif 'q' in dict:
+            # Is a question
+            if 'answers' not in dict and 'fallback' not in dict:
+                raise ValueError('Each question must have answers or fallback')
+            answers = 'answers' in dict and [self._build_answer(a) for a in
+                                             dict['answers']] or []
+            fallback = dict.get('fallback')
+            return Question(dict['q'], answers, fallback, dict.get('label'))
+
+        raise ValueError('Each line must be a message or a question')
 
 
-
+def flatten(l):
+    for node in l:
+        if isinstance(node, collections.Iterable):
+            yield from flatten(node)
+        else:
+            yield node

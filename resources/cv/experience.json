@@ -1,0 +1,39 @@
+[
+  {
+    "label": "HandleKnowExperience",
+    "m": "Right after getting my degree, I started working on a cool R&D project called <a href=\"https://www.pic4turtle.com\">Pic4Turtle</a>"
+  },
+  {
+    "m": "Since mid 2016, I switched to a startup called <a href=\"https://www.kuau.com.br\">KUAU</a>, committed to <strong>radically change secundary education</strong> in Brazil."
+  },
+  {
+    "m": "My job description was <strong>technical lead</strong>. This means quite a lot of tasks."
+  },
+  {
+    "m": "From deciding which technologies to use, to designing and prioritizing features, building the software architecture, coordinating the project, selecting other members of the team and speaking at company events"
+  },
+  {
+    "m": "Now I'm at James, the Credit Risk AI, as a <strong>Data Science Engineer</strong>."
+  },
+  {
+    "q": "Willing to know better one of such projects?",
+    "answers": [
+      {
+        "choice": "Pic4turtle",
+        "next": "HandlePic4Turtle"
+      },
+      {
+        "choice": "Kuau",
+        "next": "HandleKuau"
+      },
+      {
+        "choice": "James",
+        "next": "HandleJames"
+      },
+      {
+        "choice": "Nope",
+        "next": "NoProject"
+      }
+    ]
+  }
+]

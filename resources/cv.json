@@ -1,72 +1,27 @@
 [
   {
-    "m": "It's great to have you here! How are you doing? :grin:"
+    "include": "resources/cv/intro.json"
   },
   {
-    "m": "I'm Flavio, a creative software engineer."
+    "include": "resources/cv/education.json"
   },
   {
-    "m": "Welcome to the my very own first-of-its-kind <strong>conversational resume</strong>."
+    "include": "resources/cv/experience.json"
   },
   {
-    "q": "You're probably wondering <em>What is this stuff?</em>",
-    "answers": [
-      {
-        "choice": "Yes, indeed",
-        "next": "ExplainCV"
-      },
-      {
-        "choice": "No, I got it",
-        "next": "StartCV"
-      }
-    ]
+    "include": "resources/cv/pic4turtle.json"
   },
   {
-    "label": "ExplainCV",
-    "m": "This is a resume you can converse with. Just <b>asking it</b> about my professional talents!"
+    "include": "resources/cv/kuau.json"
   },
   {
-    "m": "Yeah, I know. Pretty unconventional."
+    "include": "resources/cv/james.json"
   },
   {
-    "m": "But great companies want to hire great professionals. So, why bother with copy-pasted templates?"
+    "include": "resources/cv/languages.json"
   },
   {
-    "m": "Don't worry though, this resume is even more informative than the ordinary ones.",
-    "next": "InitialQuestion"
-  },
-  {
-    "label": "StartCV",
-    "m": "Great! So we can start talking.",
-    "next": "InitialQuestion"
-  },
-  {
-    "label": "InitialQuestion",
-    "q": "Would you like to know something specific about me?",
-    "answers": [
-      {
-        "intent": "KnowProject",
-        "entities": [
-          "pic4turtle"
-        ],
-        "next": "HandlePic4Turtle"
-      },
-      {
-        "intent": "KnowProject",
-        "entities": [
-          "kuau"
-        ],
-        "next": "HandleKuau"
-      },
-      {
-        "intent": "TechSkill",
-        "entities": [
-          "java"
-        ],
-        "next": "HandleJava"
-      }
-    ],
-    "fallback": "AskTopic"
+    "include": "resources/cv/personality.json"
   },
   {
     "label": "HandleInjury",
@@ -105,66 +60,7 @@
     ]
   },
   {
-    "label": "HandleKnowEducation",
-    "checkers": {
-      "endEducation": "RepeatEducation"
-    },
-    "m": "I took my <strong>Master's degree</strong> (still Computer Engineering) in the Politecnico in 2015. Final grade: 107/110."
-  },
-  {
-    "m": "Here's <a href=\"https://www.amazon.com/SMAD-System-Multimodal-Assistive-Domotics/dp/3659829609\">my master thesis</a>, btw. I developed a domotic system for people with motor disabilities."
-  },
-  {
-    "q": "Would you like to know more?",
-    "answers": [
-      {
-        "choice": "Please! :thumbsup: ",
-        "next": "ContinueEducation"
-      },
-      {
-        "choice": "No, next one :sleeping:",
-        "next": "Topics"
-      }
-    ]
-  },
-  {
-    "label": "ContinueEducation",
-    "m": "I got the <strong>bachelor's degree</strong> in Computer Engineering from the Politecnico di Milano. It was 2012."
-  },
-  {
-    "m": "Then, I spent 1 year at the Universidade Federal do Espirito Santo, in Vitória, Brazil.",
-    "setters": [
-      "endEducation"
-    ]
-  },
-  {
-    "label": "Topics",
-    "q": "What would you like to know next?",
-    "answers": [
-      {
-        "intent": "KnowProject",
-        "entities": [
-          "pic4turtle"
-        ],
-        "next": "HandlePic4Turtle"
-      },
-      {
-        "intent": "KnowProject",
-        "entities": [
-          "kuau"
-        ],
-        "next": "HandleKuau"
-      }
-    ],
-    "fallback": "AskTopic"
-  },
-  {
-    "label": "RepeatEducation",
-    "m": "Again? I swear there's more to know about me!",
-    "next": "ResumeConversation"
-  },
-  {
-    "label": "AskTopic",
+    "label": "HandleNone",
     "messages": [
       "Ok... :thinking: sorry, I'm not sure I got what you mean. ",
       "42! Oops... that wasn't your question, was it?",
@@ -181,165 +77,8 @@
     "next": "ResumeConversation"
   },
   {
-    "label": "HandleKnowExperience",
-    "m": "Right after getting my degree, I started working on a cool R&D project called <a href=\"https://www.pic4turtle.com\">Pic4Turtle</a>"
-  },
-  {
-    "m": "Since mid 2016, I switched to a startup called <a href=\"https://www.kuau.com.br\">KUAU</a>, committed to <strong>radically change secundary education</strong> in Brazil."
-  },
-  {
-    "m": "My job description was <strong>technical lead</strong>. This means quite a lot of tasks."
-  },
-  {
-    "m": "From deciding which technologies to use, to designing and prioritizing features, building the software architecture, coordinating the project, selecting other members of the team and speaking at company events"
-  },
-  {
-    "m": "Now I'm at James, the Credit Risk AI, as a <strong>Data Science Engineer</strong>."
-  },
-  {
-    "q": "Willing to know better one of such projects?",
-    "answers": [
-      {
-        "choice": "Pic4turtle",
-        "next": "HandlePic4Turtle"
-      },
-      {
-        "choice": "Kuau",
-        "next": "HandleKuau"
-      },
-      {
-        "choice": "James",
-        "next": "HandleJames"
-      },
-      {
-        "choice": "Nope",
-        "next": "NoProject"
-      }
-    ]
-  },
-  {
     "label": "NoProject",
     "m": "Those weird names, ha? I understand you.",
-    "next": "Topics"
-  },
-  {
-    "label": "HandlePic4Turtle",
-    "m": "Pic4Turtle is a social platform about sea turtles and environmental awareness."
-  },
-  {
-    "m": "My job was focused on classifying sea turtle species in pictures."
-  },
-  {
-    "m": "I tackled the problem using <strong>deep learning</strong> (convolutional neural networks) to transform images and make them easier to classify."
-  },
-  {
-    "m": "Using a pretty challenging dataset, with real-world pictures, the model achieved optimal results (nearly 90% accuracy)."
-  },
-  {
-    "m": "Are you interested in machine learning too?"
-  },
-  {
-    "m": "Why don't you drop me a line or write down your email address?",
-    "next": "Topics"
-  },
-  {
-    "label": "HandleKuau",
-    "m": "Glad you asked! Kuau is the first digital platform for professional orientation in Brazil."
-  },
-  {
-    "m": "It targets students in secundary education to help them find the career of their dream."
-  },
-  {
-    "m": "It took less than one year to go from just an idea to have dozens of partner schools and hundreds of students."
-  },
-  {
-    "m": "I felt great <b>designing and building</b> it, from the inception all the way to the App Store."
-  },
-  {
-    "m": "I learned a lot <b>leading</b> a small team of young and smart devs to build a shared know-how."
-  },
-  {
-    "m": "Also, we have a wonderful koala mascot :koala:"
-  },
-  {
-    "m": "Sounds interesting? I look forward to hear from you!",
-    "next": "Topics"
-  },
-  {
-    "label": "HandleJames",
-    "m": "Cool! James is an integrated platform for credit risk management backed by state-of-the-start machine learning."
-  },
-  {
-    "m": "My main responsibility is to build production-ready systems based on data science."
-  },
-  {
-    "m": "I turn research code into robust, maintainable and scalable backend services, easily deployable and reusable."
-  },
-  {
-    "m": "I also develop high-quality software libraries which are used by our applications and teams."
-  },
-  {
-    "m": "Sounds interesting? I look forward to hear from you!",
-    "next": "Topics"
-  },
-  {
-    "label": "HandleKnowSkills",
-    "m": "My favourite field in computer science is machine learning and data science."
-  },
-  {
-    "m": "I have both theoretical knowledge and practical experience with non-trivial problems."
-  },
-  {
-    "m": "What's in my toolbox: Python, numpy stack, scikit-learn, <a href=\"http://caffe.berkeleyvision.org/\">Caffe</a> (deep learning)."
-  },
-  {
-    "m": "I'm experienced in web development, too. I realized several projects using Javascript with Angular. "
-  },
-  {
-    "m": "Including this very website :wink:"
-  },
-  {
-    "q": "Would you like to know more?",
-    "answers": [
-      {
-        "choice": "Please! :thumbsup: ",
-        "next": "ContinueKnowSkills"
-      },
-      {
-        "choice": "No, next one :sleeping:",
-        "next": "Topics"
-      }
-    ]
-  },
-  {
-    "label": "ContinueKnowSkills",
-    "m": "On the backend side, I'm proficient with Java EE and PHP (Zend)."
-  },
-  {
-    "m": "It's not my specialty, but I managed the system infrastructure for two medium-size platforms."
-  },
-  {
-    "m": "Finally, I really value automated testing and Test-Driven Development.",
-    "next": "Topics"
-  },
-  {
-    "label": "HandlePersonality",
-    "m": "How can I describe me? In a word, <strong>eclectic</strong>."
-  },
-  {
-    "m": "There is my analytical self (<em>I’m a computer scientist, after all</em>). I’m reasonable, logical, assertive and dedicated."
-  },
-  {
-    "m": "Then we have my creative side, which makes me curious, intuitive, different and friendly."
-  },
-  {
-    "m": "I take <b>data-driven technical and business decision</b>... "
-  },
-  {
-    "m": "...while I trust my <b>instinct and empathy</b> when it comes to colleagues and end-users."
-  },
-  {
-    "m": "I run on challenges, rather than coffee. And value meaning, rather than money.",
     "next": "Topics"
   },
   {
@@ -354,14 +93,6 @@
   },
   {
     "m": "Lots of wonderful people. I'm deeply grateful for that.",
-    "next": "Topics"
-  },
-  {
-    "label": "HandleJava",
-    "m": "Java: <b>proficient</b>! In fact, Java EE is my backend stack of choice."
-  },
-  {
-    "m": "Even now that <a href=\"https://startups.stackexchange.com/questions/9131/why-is-java-not-so-popular-in-software-development-startup-projects\">it's not trendy anymore</a>.",
     "next": "Topics"
   },
   {

@@ -1,0 +1,71 @@
+[
+  {
+    "m": "It's great to have you here! How are you doing? :grin:"
+  },
+  {
+    "m": "I'm Flavio, a creative software engineer."
+  },
+  {
+    "m": "Welcome to the my very own first-of-its-kind <strong>conversational resume</strong>."
+  },
+  {
+    "q": "You're probably wondering <em>What is this stuff?</em>",
+    "answers": [
+      {
+        "choice": "Yes, indeed",
+        "next": "ExplainCV"
+      },
+      {
+        "choice": "No, I got it",
+        "next": "StartCV"
+      }
+    ]
+  },
+  {
+    "label": "ExplainCV",
+    "m": "This is a resume you can converse with. Just <b>asking it</b> about my professional talents!"
+  },
+  {
+    "m": "Yeah, I know. Pretty unconventional."
+  },
+  {
+    "m": "But great companies want to hire great professionals. So, why bother with copy-pasted templates?"
+  },
+  {
+    "m": "Don't worry though, this resume is even more informative than the ordinary ones.",
+    "next": "InitialQuestion"
+  },
+  {
+    "label": "StartCV",
+    "m": "Great! So we can start talking.",
+    "next": "InitialQuestion"
+  },
+  {
+    "label": "InitialQuestion",
+    "q": "Would you like to know something specific about me?",
+    "answers": [
+      {
+        "intent": "KnowProject",
+        "entities": [
+          "pic4turtle"
+        ],
+        "next": "HandlePic4Turtle"
+      },
+      {
+        "intent": "KnowProject",
+        "entities": [
+          "kuau"
+        ],
+        "next": "HandleKuau"
+      },
+      {
+        "intent": "TechSkill",
+        "entities": [
+          "java"
+        ],
+        "next": "HandleJava"
+      }
+    ],
+    "fallback": "HandleNone"
+  }
+]

@@ -2,4 +2,5 @@ __author__ = 'Flavio Ferrara'
 
 
 class LabelNotFoundException(Exception):
-    pass
+    def __init__(self, label):
+        self.label = label

@@ -1,0 +1,22 @@
+[
+  {
+    "label": "HandlePersonality",
+    "m": "How can I describe me? In a word, <strong>eclectic</strong>."
+  },
+  {
+    "m": "There is my analytical self (<em>I’m a computer scientist, after all</em>). I’m reasonable, logical, assertive and dedicated."
+  },
+  {
+    "m": "Then we have my creative side, which makes me curious, intuitive, different and friendly."
+  },
+  {
+    "m": "I take <b>data-driven technical and business decision</b>... "
+  },
+  {
+    "m": "...while I trust my <b>instinct and empathy</b> when it comes to colleagues and end-users."
+  },
+  {
+    "m": "I run on challenges, rather than coffee. And value meaning, rather than money.",
+    "next": "Topics"
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "label": "HandleKnowLanguages",
+    "m": "My favourite language is Python. I mainly it on a regular basis for data science and backend systems."
+  },
+  {
+    "m": "But, as many things, it's not a silver bullet. I've experience with Javascript, Java and PHP as well."
+  },
+  {
+    "m": "You need to pick the right tool for the job, right?",
+    "next": "Topics"
+  },
+  {
+    "label": "HandlePython",
+    "m": "Of course, Python is my favourite language!"
+  },
+  {
+    "m": "I embraced the Zen of Python years ago. So powerful, elegant and flexible.",
+    "next": "Topics"
+  },
+  {
+    "label": "HandleJava",
+    "m": "Java: <b>proficient</b>! In fact, Java EE is my second backend stack of choice."
+  },
+  {
+    "m": "Even now that <a href=\"https://startups.stackexchange.com/questions/9131/why-is-java-not-so-popular-in-software-development-startup-projects\">it's not trendy anymore</a>.",
+    "next": "Topics"
+  }
+]

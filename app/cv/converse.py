@@ -108,8 +108,8 @@ class Conversable:
 
                 response = self.handler.process_sentence(sentence)
                 node = self.conversation.get_intent_reply(response)
-        except LabelNotFoundException:
-            logging.error(f'Label not found while processing {sentence.text}')
+        except LabelNotFoundException as e:
+            logging.error(f'Label {e.label} not found while processing {sentence.text}')
             return Observable.empty()
 
         return Observable.from_list(self._continue_topic(node))

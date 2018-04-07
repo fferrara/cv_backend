@@ -1,0 +1,22 @@
+[
+  {
+    "label": "HandlePic4Turtle",
+    "m": "Pic4Turtle is a social platform about sea turtles and environmental awareness."
+  },
+  {
+    "m": "My job was focused on classifying sea turtle species in pictures."
+  },
+  {
+    "m": "I tackled the problem using <strong>deep learning</strong> (convolutional neural networks) to transform images and make them easier to classify."
+  },
+  {
+    "m": "Using a pretty challenging dataset, with real-world pictures, the model achieved optimal results (nearly 90% accuracy)."
+  },
+  {
+    "m": "Are you interested in machine learning too?"
+  },
+  {
+    "m": "Why don't you drop me a line or write down your email address?",
+    "next": "Topics"
+  }
+]

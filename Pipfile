@@ -5,6 +5,11 @@ name = "pypi"
 verify_ssl = true
 
 
+[requires]
+
+python_version = '3.6'
+
+
 [packages]
 
 rx = "==1.5.7"
@@ -16,3 +21,5 @@ raven = "*"
 
 [dev-packages]
 
+pytest = "*"
+"flake8" = "*"

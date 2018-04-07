@@ -6,7 +6,7 @@ import jsonpickle
 import rx
 from autobahn.asyncio import WebSocketServerProtocol, WebSocketServerFactory
 
-from app.cv.conversation import Conversation
+from app.cv.conversation import Conversation, ConversationJSONFactory
 from app.cv.converse import Conversable, Sentence
 
 asyncio = rx.config['asyncio']
@@ -43,7 +43,8 @@ class RxWebSocketServerFactory(WebSocketServerFactory):
         self.conversation_structure = conversation_json
 
     def init_client(self, client):
-        my_conversation = Conversation.load_from_json(self.conversation_structure)
+        factory = ConversationJSONFactory(self.conversation_structure)
+        my_conversation = factory.build()
         conversable = Conversable(my_conversation, settings=self._settings)
         ws_stream = Subject()
 

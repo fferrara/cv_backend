@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from app.cv.conversation import Conversation
+from app.cv.conversation import Conversation, ConversationJSONFactory
 from app.cv.conversation_graph import Node, Question, IntentAnswer
 from app.cv.listen.intent import Intent, Entity, IntentResponse
 
@@ -79,11 +79,12 @@ class TestConversation(TestCase):
         assert False
 
     def test_load_from_json(self):
-        json_file = 'res/conv.json'
+        json_file = 'resources/cv.json'
         with (open(json_file)) as f:
             content = f.read()
 
-        c = Conversation.load_from_json(content)
+        factory = ConversationJSONFactory(content)
+        c = factory.build()
         c.set_current_node(c.story[4])
         node = c.get_intent_reply(
             IntentResponse(Intent('SwitchTopic'), [Entity('MachineLearning')]))

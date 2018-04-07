@@ -1,8 +1,7 @@
 import logging
 import sys
 
-import os
-from raven import Client, setup_logging
+from raven import setup_logging
 from raven.handlers.logging import SentryHandler
 
 from app.services.ws.ws import WebSocketServer
@@ -14,8 +13,8 @@ def main(settings):
 
     application = WebSocketServer(conversation_json, settings)
 
-    if os.getenv('SENTRY_DSN'):
-        handler = SentryHandler(os.getenv('SENTRY_DSN'))
+    if settings.get('SENTRY_DSN'):
+        handler = SentryHandler(settings.get('SENTRY_DSN'))
         handler.setLevel(logging.ERROR)
         setup_logging(handler)
 
