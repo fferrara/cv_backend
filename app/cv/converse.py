@@ -1,8 +1,6 @@
 import json
 import logging
 
-from raven import Client
-
 from app.cv.conversation_graph import Question, ChoiceAnswer
 from app.cv.listen.luis import LUISHandler
 from rx.core.py3.observable import Observable

@@ -48,5 +48,3 @@ class IntentResponse:
 class SentenceHandler:
     def process_sentence(self, sentence):
         raise NotImplementedError
-
-

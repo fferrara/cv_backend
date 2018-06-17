@@ -1,4 +1,4 @@
-from .base import *
+from .base import *  # noqa
 
-DEBUG=True
-SENTRY_DSN=None
+DEBUG = True
+SENTRY_DSN = None

@@ -1,5 +1,3 @@
-import os
-
 import requests
 
 from app.cv.listen.intent import SentenceHandler, IntentResponse, Intent, Entity

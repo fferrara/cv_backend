@@ -10,7 +10,7 @@ __author__ = 'Flavio Ferrara'
 
 
 class Conversation:
-    def __init__(self, story=None):
+    def __init__(self, story: List = None):
         self.story = story  # type: List
         self.current_index = 0
 
@@ -48,10 +48,9 @@ class Conversation:
 
     def get_intent_reply(self, intent_response) -> Node:
         """
-    
-            :param intent_response: IntentResponse
-            :return:
-            """
+        :param intent_response: IntentResponse
+        :return:
+        """
         if not isinstance(self.story[self.current_index], Question):
             raise ValueError('Current point in story is not a question')
 
@@ -62,7 +61,6 @@ class Conversation:
             label = self._get_global_handler(intent_response) or question.fallback
 
         return self.story[self._find_node(label)]
-
 
     def _find_node(self, label):
         """
@@ -90,6 +88,7 @@ class ConversationJSONFactory:
     :param json_string: The JSON string
     :return: :raise TypeError:
     """
+
     def __init__(self, json_string):
         self.json_ = json_string
 
@@ -131,7 +130,7 @@ class ConversationJSONFactory:
             return Node(dict['m'], dict.get('label'), dict.get('next'))
         elif 'messages' in dict:
             # Node with multiple messages
-            return RandomMessageNode(dict['messages'], dict.get('label'))
+            return RandomMessageNode(dict['messages'], dict.get('label'), dict.get('next'))
         elif 'q' in dict:
             # Is a question
             if 'answers' not in dict and 'fallback' not in dict:

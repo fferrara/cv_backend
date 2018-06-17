@@ -16,14 +16,15 @@ class TestConversation(TestCase):
 
         self.node2 = Node('Yeah, I totally agree! Osd!', 'osd_node')
         self.node1 = Node('You said asd, dont you?', 'asd_node')
-        self.story = [Node('Welcome!')]
+        no_entity_node = Node('I have no entity attached', 'no_entity_node')
+        self.story = [Node('Welcome!'), no_entity_node]
 
     def test_creation(self):
         c = Conversation(self.story)
         self.assertIsNotNone(c)
 
     def test_first_reply(self):
-        question = Question('Asd or Osd?', [IntentAnswer('asd_node', Intent('Asd'))])
+        question = Question('Asd or Osd?', [IntentAnswer('asd_node', Intent('Asd'))], 'TEST_FALLBACK')
         self.story.append(question)
         self.story.append(self.node1)
         c = Conversation(self.story)
@@ -37,21 +38,26 @@ class TestConversation(TestCase):
         """
         When the specified Entity does not exist, just use the Intent name.
         """
-        question = Question('Asd or Osd?', [IntentAnswer('asd_node', Intent('Asd'))])
+        question = Question('Asd or Osd?', [
+            IntentAnswer('no_entity_node', Intent('Asd')),
+            IntentAnswer('asd_node', Intent('Asd'), [Entity('Entity1')]),
+            IntentAnswer('wow_node', Intent('Asd'), [Entity('Entity2')])
+        ], 'TEST_FALLBACK')
         self.story.append(question)
         self.story.append(self.node1)
         c = Conversation(self.story)
         c.set_current_node(question)
 
-        node = c.get_intent_reply(IntentResponse(Intent('Asd'), [Entity('Entity2')]))
+        node = c.get_intent_reply(IntentResponse(Intent('Asd'), [Entity('Entity3')]))
         self.assertIsNotNone(node)
-        self.assertEqual('You said asd, dont you?', node.message)
+        self.assertEqual('I have no entity attached', node.message)
 
     def test_single_entity(self):
         question = Question('Asd or Osd?', [
+            IntentAnswer('no_entity_node', Intent('Asd')),
             IntentAnswer('asd_node', Intent('Asd'), [Entity('Entity1')]),
             IntentAnswer('wow_node', Intent('Asd'), [Entity('Entity2')])
-        ])
+        ], 'TEST_FALLBACK')
         self.story.append(question)
         self.story.append(self.node1)
         self.story.append(Node('Wow, Entity2!', 'wow_node'))
@@ -66,17 +72,23 @@ class TestConversation(TestCase):
         """
         When multiple entities are specified, the reply associated with the entire set is used.
         """
-        # root = deepcopy(self.root)
-        # root.add_edge(Edge(self.node1, self.intent1))
-        # root.add_edge(Edge(
-        #     Node('Congrats, you specified both entities'),
-        #     self.intent1,
-        #     [self.entity1, self.entity2])
-        # )
-        # c = Conversation(root)
-        # node = c.get_reply(Intent('Asd'), [Entity('Entity1'), Entity('Entity2')])
-        # self.assertIn('Congrats, you specified both entities', node.message)
-        assert False
+        self.story = [Node('Welcome!')]
+        e1 = Entity('Entity1')
+        e2 = Entity('Entity2')
+        question = Question('Asd or Osd?', [
+            IntentAnswer('asd_node', Intent('Asd'), [e1]),
+            IntentAnswer('wow_node', Intent('Asd'), [e2]),
+            IntentAnswer('both_node', Intent('Asd'), [e1, e2])
+        ], 'TEST_FALLBACK')
+        self.story.append(question)
+        self.story.append(self.node1)
+        self.story.append(Node('Wow, both entities!', 'both_node'))
+        c = Conversation(self.story)
+        c.set_current_node(question)
+
+        node = c.get_intent_reply(IntentResponse(Intent('Asd'), [Entity('Entity1'), Entity('Entity2')]))
+        self.assertIsNotNone(node)
+        self.assertEqual('Wow, both entities!', node.message)
 
     def test_load_from_json(self):
         json_file = 'resources/cv.json'
@@ -85,17 +97,10 @@ class TestConversation(TestCase):
 
         factory = ConversationJSONFactory(content)
         c = factory.build()
-        c.set_current_node(c.story[4])
-        node = c.get_intent_reply(
-            IntentResponse(Intent('SwitchTopic'), [Entity('MachineLearning')]))
-        self.assertIsNotNone(node)
-        self.assertEqual('Great, I\'m passionate about machine learning! Pretty hot topic these days, ha?', node.message)
 
-        c.set_current_node(c.story[4])
-        node = c.get_intent_reply(
-            IntentResponse(Intent('SwitchTopic'), [Entity('MobileApp')]))
-        self.assertIsNotNone(node)
-        self.assertEqual('Cool! I suppose you already have prototyped the User Experience, right?', node.message)
+        assert len(c.story) == 67
+        assert str(c.story[0]) == "It's great to have you here! How are you doing? :grin:"
+        assert str(c.story[-1]) == 'Looking forward to have you here again soon...'
 
     def test_global_handler(self):
         """
@@ -104,7 +109,7 @@ class TestConversation(TestCase):
         At any point in the cv, an Intent can trigger its global handler.
         :return:
         """
-        question = Question('Asd or Osd?', [IntentAnswer('asd_node', Intent('Asd'))])
+        question = Question('Asd or Osd?', [IntentAnswer('asd_node', Intent('Asd'))], 'TEST_FALLBACK')
         self.story.append(question)
         self.story.append(Node("Hey, I'm global!", "HandleOsd"))
         c = Conversation(self.story)

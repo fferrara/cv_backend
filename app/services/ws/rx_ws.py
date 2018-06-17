@@ -5,13 +5,12 @@ import traceback
 import jsonpickle
 import rx
 from autobahn.asyncio import WebSocketServerProtocol, WebSocketServerFactory
+from rx.subjects import Subject
 
-from app.cv.conversation import Conversation, ConversationJSONFactory
+from app.cv.conversation import ConversationJSONFactory
 from app.cv.converse import Conversable, Sentence
 
 asyncio = rx.config['asyncio']
-from rx.subjects import Subject
-
 __author__ = 'Flavio Ferrara'
 
 
@@ -64,7 +63,7 @@ class RxWebSocketServerFactory(WebSocketServerFactory):
         try:
             stream = self.clients[client]
             stream.on_next(Sentence.build(msg))
-        except:
+        except Exception:
             traceback.print_exc()
             self.send(client, json.dumps({
                 "type": "ERROR",
