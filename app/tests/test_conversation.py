@@ -98,7 +98,7 @@ class TestConversation(TestCase):
         factory = ConversationJSONFactory(content)
         c = factory.build()
 
-        assert len(c.story) == 67
+        assert len(c.story) == 80
         assert str(c.story[0]) == "It's great to have you here! How are you doing? :grin:"
         assert str(c.story[-1]) == 'Looking forward to have you here again soon...'
 

@@ -24,6 +24,9 @@
     "include": "resources/cv/languages.json"
   },
   {
+    "include": "resources/cv/skills.json"
+  },
+  {
     "include": "resources/cv/personality.json"
   },
   {
