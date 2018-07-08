@@ -6,6 +6,8 @@ CONV_FILE = 'resources/cv.json'
 WS_HOST = os.getenv('WS_HOST', '0.0.0.0')
 WS_PORT = os.getenv('WS_PORT', 9000)
 
+SENTRY_DSN = os.getenv('SENTRY_DSN')
+
 LUIS_URL = os.getenv('LUIS_URL')
 if not LUIS_URL:
     raise EnvironmentError('Need to specify the LUIS_URL')
