@@ -1,0 +1,688 @@
+{
+  "luis_schema_version": "3.1.0",
+  "versionId": "0.1",
+  "name": "CV",
+  "desc": "NLP engine for conversational engine",
+  "culture": "en-us",
+  "intents": [
+    {
+      "name": "Affirmative"
+    },
+    {
+      "name": "Injury"
+    },
+    {
+      "name": "KnowEducation"
+    },
+    {
+      "name": "KnowExperience"
+    },
+    {
+      "name": "KnowLanguage"
+    },
+    {
+      "name": "KnowLanguages"
+    },
+    {
+      "name": "KnowProject"
+    },
+    {
+      "name": "KnowSkills"
+    },
+    {
+      "name": "Love"
+    },
+    {
+      "name": "Negative"
+    },
+    {
+      "name": "None"
+    },
+    {
+      "name": "Personality"
+    }
+  ],
+  "entities": [
+    {
+      "name": "Project",
+      "roles": []
+    }
+  ],
+  "composites": [],
+  "closedLists": [
+    {
+      "name": "Language",
+      "subLists": [
+        {
+          "canonicalForm": "Python",
+          "list": [
+            "python",
+            "python"
+          ]
+        },
+        {
+          "canonicalForm": "Java",
+          "list": [
+            "java",
+            "java"
+          ]
+        },
+        {
+          "canonicalForm": "Javascript",
+          "list": []
+        },
+        {
+          "canonicalForm": "PHP",
+          "list": [
+            "php",
+            "php"
+          ]
+        },
+        {
+          "canonicalForm": "perl",
+          "list": []
+        },
+        {
+          "canonicalForm": "c++",
+          "list": []
+        },
+        {
+          "canonicalForm": "Go",
+          "list": []
+        },
+        {
+          "canonicalForm": "Haskell",
+          "list": []
+        },
+        {
+          "canonicalForm": "clojure",
+          "list": []
+        },
+        {
+          "canonicalForm": "lisp",
+          "list": []
+        },
+        {
+          "canonicalForm": "erlang",
+          "list": []
+        }
+      ],
+      "roles": []
+    }
+  ],
+  "patternAnyEntities": [],
+  "regex_entities": [],
+  "prebuiltEntities": [],
+  "model_features": [
+    {
+      "name": "Languages",
+      "mode": true,
+      "words": "Python,Java,Javascript,css,PHP,. net,c,ruby",
+      "activated": true
+    },
+    {
+      "name": "Tools",
+      "mode": true,
+      "words": "Docker,AWS,Travis,MySQL",
+      "activated": true
+    }
+  ],
+  "regex_features": [],
+  "patterns": [],
+  "utterances": [
+    {
+      "text": "are you good at software?",
+      "intent": "KnowSkills",
+      "entities": []
+    },
+    {
+      "text": "are you skilled?",
+      "intent": "KnowSkills",
+      "entities": []
+    },
+    {
+      "text": "asshole",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "awesome",
+      "intent": "Love",
+      "entities": []
+    },
+    {
+      "text": "boring shit",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "ciao",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "do know python?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "do you have a degree?",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "do you have a pet?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "do you have experience with java?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "do you know how to program?",
+      "intent": "KnowLanguages",
+      "entities": []
+    },
+    {
+      "text": "do you know java?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "do you know python?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "do you know python_",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "do you know something about python?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "do you like php?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "do you use python?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "dumb site",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "education",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "education?",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "experience",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "fuck u",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "fuck you",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "have you ever written javascript?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "have you worked with php?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "how about your car?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "how about your education?",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "how about your personal style?",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "how about your personality?",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "how are your parents?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "how do you behave at work?",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "how do you describe yourself?",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "how do you develop programs",
+      "intent": "KnowLanguages",
+      "entities": []
+    },
+    {
+      "text": "how is your home?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "how many years are you working for?",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "how old are you?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "how was your first job?",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "i love you",
+      "intent": "Love",
+      "entities": []
+    },
+    {
+      "text": "i want to know about your education",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "i want to know about your projects",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "i'm curious about pic4turtle",
+      "intent": "KnowProject",
+      "entities": [
+        {
+          "entity": "Project",
+          "startPos": 18,
+          "endPos": 27
+        }
+      ]
+    },
+    {
+      "text": "love u",
+      "intent": "Love",
+      "entities": []
+    },
+    {
+      "text": "maybe let's talk about work",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "milano",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "never",
+      "intent": "Negative",
+      "entities": []
+    },
+    {
+      "text": "nevermind",
+      "intent": "Negative",
+      "entities": []
+    },
+    {
+      "text": "no",
+      "intent": "Negative",
+      "entities": []
+    },
+    {
+      "text": "no way",
+      "intent": "Negative",
+      "entities": []
+    },
+    {
+      "text": "not at all",
+      "intent": "Negative",
+      "entities": []
+    },
+    {
+      "text": "of course",
+      "intent": "Affirmative",
+      "entities": []
+    },
+    {
+      "text": "shit site",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "software experience",
+      "intent": "KnowSkills",
+      "entities": []
+    },
+    {
+      "text": "software skills",
+      "intent": "KnowSkills",
+      "entities": []
+    },
+    {
+      "text": "sure",
+      "intent": "Affirmative",
+      "entities": []
+    },
+    {
+      "text": "talk me about yourself",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "tell me about your childhood",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "tell me about your parents",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "tell me about your personality",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "tell me more about your work on kuau",
+      "intent": "KnowProject",
+      "entities": [
+        {
+          "entity": "Project",
+          "startPos": 32,
+          "endPos": 35
+        }
+      ]
+    },
+    {
+      "text": "tell me where have you worked",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "tell me where you studied",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "tell me where you worked",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "telm me about yours skills",
+      "intent": "KnowSkills",
+      "entities": []
+    },
+    {
+      "text": "this is crap",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "w",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what about your education?",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "what about your experience?",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "what are you doing",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what are you doing?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what are your favorite languages?",
+      "intent": "KnowLanguages",
+      "entities": []
+    },
+    {
+      "text": "what are your projects?",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "what are your skills?",
+      "intent": "KnowSkills",
+      "entities": []
+    },
+    {
+      "text": "what are your strengths?",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "what are your values?",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "what can you do",
+      "intent": "KnowSkills",
+      "entities": []
+    },
+    {
+      "text": "what do you do at james?",
+      "intent": "KnowProject",
+      "entities": [
+        {
+          "entity": "Project",
+          "startPos": 18,
+          "endPos": 22
+        }
+      ]
+    },
+    {
+      "text": "what do you use to code?",
+      "intent": "KnowLanguages",
+      "entities": []
+    },
+    {
+      "text": "what is your favorite color?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what language do you develop with",
+      "intent": "KnowLanguages",
+      "entities": []
+    },
+    {
+      "text": "what time is it?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what's the weather like?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "what's your surname",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "where di you study?",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "where did you born?",
+      "intent": "None",
+      "entities": []
+    },
+    {
+      "text": "where did you study?",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "where have you studied?",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "where have you worked",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "where have you worked?",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "where you studied",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "where you worked",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "which companies did you work for?",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "which is your favorite programming language?",
+      "intent": "KnowLanguages",
+      "entities": []
+    },
+    {
+      "text": "which languages do you know?",
+      "intent": "KnowLanguages",
+      "entities": []
+    },
+    {
+      "text": "which university did you study?",
+      "intent": "KnowEducation",
+      "entities": []
+    },
+    {
+      "text": "why should we hire you?",
+      "intent": "Personality",
+      "entities": []
+    },
+    {
+      "text": "work experience?",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "work, i mean work. stupid bot",
+      "intent": "KnowExperience",
+      "entities": []
+    },
+    {
+      "text": "yeah",
+      "intent": "Affirmative",
+      "entities": []
+    },
+    {
+      "text": "yep",
+      "intent": "Affirmative",
+      "entities": []
+    },
+    {
+      "text": "yes",
+      "intent": "Affirmative",
+      "entities": []
+    },
+    {
+      "text": "yes. do you know something about python?",
+      "intent": "KnowLanguage",
+      "entities": []
+    },
+    {
+      "text": "you are beautiful",
+      "intent": "Love",
+      "entities": []
+    },
+    {
+      "text": "you are crap",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "you are dumb",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "you are fantastic",
+      "intent": "Love",
+      "entities": []
+    },
+    {
+      "text": "you are stupid",
+      "intent": "Injury",
+      "entities": []
+    },
+    {
+      "text": "you shit",
+      "intent": "Injury",
+      "entities": []
+    }
+  ],
+  "settings": []
+}

@@ -1,0 +1,47 @@
+utterance,intent
+what is your favorite color?,None
+milano,None
+kuau,None
+how old are you?,None
+where did you born?,None
+do know python?,KnowLanguage
+where do you live,None
+what's your day-to-day like?,None
+where have you worked at?,KnowExperience
+tell me about your projects,KnowExperience
+tell me something about some projects you've work,KnowExperience
+Do you have availability to travel?,None
+Do you have experience with deep learning?,KnowSkills
+Do you know ionic?,KnowLanguage
+Education,KnowEducation
+Experience,KnowExperience
+Have you ever written JavaScript?,KnowLanguage
+Have you traveled to Brazil?,None
+How did you create this CV?,None
+How does this work?,None
+How many years are you working for?,KnowExperience
+I am the lead of ML team at this company. I found you on Linkedin. My email is niceguy@company.com,None
+Knock knock,None
+School,KnowEducation
+Talk me about yourself,KnowPersonality
+Tell me a joke,None
+Tell me where have you worked,KnowExperience
+What is the meaning of life?,None
+What programming languages do you use?,KnowLanguages
+What technologies do you know?,KnowLanguages
+Where did you study?,KnowEducation
+Where have you worked?,KnowExperience
+Where were you born?,None
+do you love music?,None
+i love you,Love
+what is your greatest accomplishment?,None
+what is your greatest acomplishment?,None
+what is your name?,None
+what studies do you have?,KnowEducation
+what's your favorite programming language?,KnowLanguages
+wher have you worked ?,KnowExperience
+where do you live?,None
+yes,Affirmative
+What's your favourite coding framework?,KnowLanguages
+What's your number 1 strength?,KnowPersonality
+What was your first job?,KnowExperience
