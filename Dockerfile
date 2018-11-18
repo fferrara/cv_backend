@@ -8,4 +8,4 @@ COPY ./Pipfile.lock /code
 
 WORKDIR /code
 RUN pip install pipenv
-RUN pipenv install --system -d
+RUN pipenv install --system -d --ignore-pipfile
